@@ -512,8 +512,119 @@ export const translations = {
       watchVideo: 'Watch Video',
     },
   },
-} as const;
+};
 
-export type Translations = typeof translations.tr;
+// Generic type for translations
+export interface Translations {
+  nav: {
+    course: string;
+    testimonials: string;
+    pricing: string;
+    faq: string;
+    cta: string;
+  };
+  hero: {
+    badge: string;
+    title: string;
+    titleHighlight: string;
+    titleEnd: string;
+    subtitle: string;
+    cta: string;
+    ctaSecondary: string;
+    stats: {
+      students: string;
+      apps: string;
+      rating: string;
+    };
+    urgency: string;
+  };
+  income: {
+    badge: string;
+    title: string;
+    titleHighlight: string;
+    subtitle: string;
+    monthlyIncome: string;
+    totalEarned: string;
+    avgTime: string;
+    avgTimeValue: string;
+    successRate: string;
+  };
+  compare: {
+    badge: string;
+    title: string;
+    titleHighlight: string;
+    oldWay: {
+      title: string;
+      items: string[];
+    };
+    newWay: {
+      title: string;
+      items: string[];
+    };
+  };
+  course: {
+    badge: string;
+    title: string;
+    titleHighlight: string;
+    subtitle: string;
+    modules: {
+      title: string;
+      description: string;
+      duration: string;
+    }[];
+    totalHours: string;
+    lifetime: string;
+  };
+  testimonials: {
+    badge: string;
+    title: string;
+    titleHighlight: string;
+    items: {
+      name: string;
+      role: string;
+      image: string;
+      text: string;
+      income: string;
+    }[];
+  };
+  pricing: {
+    badge: string;
+    title: string;
+    titleHighlight: string;
+    oldPrice: string;
+    newPrice: string;
+    discount: string;
+    perMonth: string;
+    cta: string;
+    guarantee: string;
+    features: string[];
+    urgency: string;
+    spots: string;
+  };
+  faq: {
+    badge: string;
+    title: string;
+    titleHighlight: string;
+    items: {
+      q: string;
+      a: string;
+    }[];
+  };
+  footer: {
+    brand: string;
+    tagline: string;
+    rights: string;
+    links: {
+      privacy: string;
+      terms: string;
+      contact: string;
+    };
+  };
+  common: {
+    learnMore: string;
+    getStarted: string;
+    watchVideo: string;
+  };
+}
 
 
