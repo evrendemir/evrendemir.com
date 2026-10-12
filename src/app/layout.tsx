@@ -20,9 +20,9 @@ const jetbrainsMono = JetBrains_Mono({
   weight: ["400", "500"],
 });
 
-const title = "Evren Demir | Firmalar ve esnaf için yazılım";
+const title = "Evren Demir | Uygulama geliştirme ve danışmanlık";
 const description =
-  "Firmalara özel ERP ve yönetim yazılımları; küçük işletmeler ve esnaf için stok, ön muhasebe, randevu ve servis takibi uygulamaları.";
+  "Firmalara özel ERP yazılımları, esnafa randevu ve stok uygulamaları, girişimcilere MVP ve kendi uygulamasını yapmak isteyenlere birebir mentorluk.";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://evrendemir.com"),

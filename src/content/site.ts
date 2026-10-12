@@ -9,7 +9,20 @@ export const profile = {
   available: true,
   intro:
     "Firmalara özel ERP ve yönetim yazılımları, esnafa randevu ve stok uygulamaları, bireylere fikirlerini hayata geçiren uygulamalar geliştiriyorum. Kendi uygulamasını yapmak isteyenlere de danışmanlık veriyorum.",
-  roles: ["ERP yazılımları", "randevu uygulamaları", "mobil uygulamalar", "web siteleri", "otomasyonlar"],
+  // Girişte dönen "kime + ne" başlıkları
+  pitches: [
+    { who: "Firmalara", what: "özel ERP yazılımı" },
+    { who: "Esnafa", what: "randevu ve stok uygulaması" },
+    { who: "Girişimcilere", what: "yayına hazır MVP" },
+    { who: "Fikri olana", what: "kendi uygulaması" },
+    { who: "Öğrenmek isteyene", what: "birebir mentorluk" },
+  ],
+  // Girişteki "ne arıyorsun?" kısayolları
+  paths: [
+    { label: "İşletmem için", detail: "ERP, randevu, stok", href: "#cozumler" },
+    { label: "Kendi fikrim için", detail: "Uygulama, MVP, e-ticaret", href: "#bireysel" },
+    { label: "Öğrenmek istiyorum", detail: "Mentorluk ve danışmanlık", href: "#danismanlik" },
+  ],
 };
 
 export const socials = [

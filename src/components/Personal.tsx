@@ -58,7 +58,8 @@ export default function Personal() {
       </div>
 
       {/* Danışmanlık */}
-      <Reveal className="mt-28">
+      <Reveal className="mt-28 scroll-mt-28">
+        <span id="danismanlik" className="block -translate-y-28" />
         <div className="gradient-border relative grid overflow-hidden rounded-[2rem] bg-bg-soft lg:grid-cols-2">
           <div className="relative aspect-[4/3] lg:aspect-auto">
             <Image src="/projects/danismanlik.jpg" alt="Birebir danışmanlık görüşmesi" fill sizes="(min-width: 1024px) 50vw, 100vw" className="object-cover object-[35%_50%]" />

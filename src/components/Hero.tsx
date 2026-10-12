@@ -9,26 +9,35 @@ import { MaskText } from "./Reveal";
 const START = 1.0; // açılış ekranı kalktıktan sonra
 const ease = [0.22, 1, 0.36, 1] as const;
 
-function RotatingRole() {
+// "Kime + ne" başlığı: iki satır birlikte döner.
+function RotatingPitch() {
   const [i, setI] = useState(0);
   useEffect(() => {
-    const t = setInterval(() => setI((n) => (n + 1) % profile.roles.length), 2600);
+    const t = setInterval(() => setI((n) => (n + 1) % profile.pitches.length), 2800);
     return () => clearInterval(t);
   }, []);
+  const p = profile.pitches[i];
+  const anim = {
+    initial: { y: "100%", opacity: 0, filter: "blur(6px)" },
+    animate: { y: "0%", opacity: 1, filter: "blur(0px)" },
+    exit: { y: "-100%", opacity: 0, filter: "blur(6px)" },
+  };
   return (
-    <span className="relative inline-flex h-[1.15em] overflow-hidden align-bottom">
-      <AnimatePresence mode="popLayout" initial={false}>
-        <motion.span
-          key={profile.roles[i]}
-          className="text-gradient font-serif italic"
-          initial={{ y: "100%", opacity: 0, filter: "blur(6px)" }}
-          animate={{ y: "0%", opacity: 1, filter: "blur(0px)" }}
-          exit={{ y: "-100%", opacity: 0, filter: "blur(6px)" }}
-          transition={{ duration: 0.7, ease }}
-        >
-          {profile.roles[i]}
-        </motion.span>
-      </AnimatePresence>
+    <span className="block" aria-live="polite">
+      <span className="relative block h-[1.2em] overflow-hidden">
+        <AnimatePresence mode="popLayout" initial={false}>
+          <motion.span key={p.who} className="block" {...anim} transition={{ duration: 0.7, ease }}>
+            {p.who}
+          </motion.span>
+        </AnimatePresence>
+      </span>
+      <span className="relative block h-[1.25em] overflow-hidden">
+        <AnimatePresence mode="popLayout" initial={false}>
+          <motion.span key={p.what} className="block" {...anim} transition={{ duration: 0.7, ease, delay: 0.08 }}>
+            <span className="text-gradient font-serif italic">{p.what}.</span>
+          </motion.span>
+        </AnimatePresence>
+      </span>
     </span>
   );
 }
@@ -131,7 +140,7 @@ export default function Hero() {
         <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-bg to-transparent" />
       </div>
 
-      <motion.div style={{ y, opacity }} className="relative mx-auto grid w-full max-w-7xl items-center gap-16 lg:grid-cols-[1.25fr_1fr]">
+      <motion.div style={{ y, opacity }} className="relative mx-auto grid w-full max-w-7xl items-center gap-16 lg:grid-cols-[1.6fr_1fr]">
         <div>
           <motion.div
             className="glass mb-10 inline-flex items-center gap-3 rounded-full py-1.5 pl-1.5 pr-4 text-sm"
@@ -166,14 +175,12 @@ export default function Hero() {
           </h1>
 
           <motion.p
-            className="mt-10 text-2xl leading-tight tracking-tight text-fg/90 md:text-[2.5rem]"
+            className="mt-8 text-3xl font-medium leading-tight tracking-tight text-fg md:text-5xl"
             initial={{ opacity: 0, y: 20, filter: "blur(8px)" }}
             animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
             transition={{ duration: 1, delay: START + 0.3 }}
           >
-            İşletmeler için <RotatingRole />
-            <br />
-            tasarlıyor ve geliştiriyorum.
+            <RotatingPitch />
           </motion.p>
 
           <motion.p
@@ -186,17 +193,31 @@ export default function Hero() {
           </motion.p>
 
           <motion.div
-            className="mt-10 flex flex-wrap gap-3"
+            className="mt-10"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: START + 0.6 }}
           >
-            <a href="#iletisim" className="shine group relative inline-flex items-center gap-3 overflow-hidden rounded-full bg-fg py-3.5 pl-6 pr-3 font-medium text-bg">
-              Birlikte çalışalım
-              <span className="flex h-8 w-8 items-center justify-center rounded-full bg-bg text-fg transition-transform duration-500 group-hover:rotate-[-45deg]">→</span>
-            </a>
-            <a href="#uygulamalar" className="glass inline-flex items-center rounded-full px-6 py-3.5 font-medium transition-colors hover:bg-white/10">
-              Uygulamalarım
+            <p className="mb-3 font-mono text-xs uppercase tracking-[0.18em] text-muted">Ne arıyorsun?</p>
+            <div className="grid gap-3 sm:grid-cols-3">
+              {profile.paths.map((p, i) => (
+                <a
+                  key={p.href}
+                  href={p.href}
+                  className={`group relative flex items-center justify-between gap-2 overflow-hidden rounded-2xl px-4 py-3.5 transition-colors ${
+                    i === 0 ? "shine bg-fg text-bg" : "glass hover:bg-white/10"
+                  }`}
+                >
+                  <span>
+                    <span className="block text-[15px] font-medium leading-snug">{p.label}</span>
+                    <span className={`block text-xs ${i === 0 ? "text-bg/60" : "text-muted"}`}>{p.detail}</span>
+                  </span>
+                  <span className="transition-transform duration-500 group-hover:translate-x-1">→</span>
+                </a>
+              ))}
+            </div>
+            <a href="#iletisim" className="mt-5 inline-block text-sm text-muted underline-offset-4 transition-colors hover:text-fg hover:underline">
+              Ya da doğrudan yaz: {profile.email}
             </a>
           </motion.div>
         </div>
