@@ -16,16 +16,16 @@ function ProjectCard({ p, index }: { p: PersonalProject; index: number }) {
           className="object-cover transition-transform duration-[1.4s] ease-out group-hover:scale-110"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-black/0" />
-        <span className="glass absolute left-4 top-4 rounded-full px-3 py-1 text-xs text-white">{p.type}</span>
-        <div className="absolute inset-x-0 bottom-0 p-5">
-          <h3 className="text-xl font-medium leading-tight tracking-tight text-white md:text-2xl">{p.title}</h3>
+        <span className="glass absolute left-3 top-3 rounded-full px-2.5 py-1 text-[10px] text-white sm:left-4 sm:top-4 sm:px-3 sm:text-xs">{p.type}</span>
+        <div className="absolute inset-x-0 bottom-0 p-3.5 sm:p-5">
+          <h3 className="text-base font-medium leading-tight tracking-tight text-white sm:text-xl md:text-2xl">{p.title}</h3>
           {/* Açıklama üstüne gelince açılır */}
           <div className="grid grid-rows-[0fr] transition-[grid-template-rows] duration-500 ease-out group-hover:grid-rows-[1fr]">
             <div className="overflow-hidden">
               <p className="pt-2 text-sm leading-relaxed text-white/75">{p.summary}</p>
             </div>
           </div>
-          <div className="mt-3 flex flex-wrap gap-1.5">
+          <div className="mt-3 hidden flex-wrap gap-1.5 sm:flex">
             {p.tags.map((t) => (
               <span key={t} className="rounded-full border border-white/20 px-2.5 py-0.5 text-[11px] text-white/80">
                 {t}
@@ -51,7 +51,7 @@ export default function Personal() {
         </Reveal>
       </div>
 
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
         {personalProjects.slice(0, 4).map((p, i) => (
           <ProjectCard key={p.slug} p={p} index={i} />
         ))}
