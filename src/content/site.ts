@@ -155,85 +155,11 @@ export const apps: App[] = [
   },
 ];
 
-// İki ana hizmet: firmalar ve küçük işletmeler.
-export const offers = [
-  {
-    key: "firma",
-    eyebrow: "Firmalar için",
-    title: "İşinize özel yazılım",
-    body:
-      "Hazır programlara uymayan iş akışınızı olduğu gibi yazılıma taşıyorum. Excel tablolarını, kâğıt formları ve WhatsApp gruplarını tek bir sisteme topluyoruz.",
-    items: [
-      "ERP ve üretim takibi",
-      "Sipariş, satın alma ve sevkiyat",
-      "Finans, kasa ve cari",
-      "Kalite ve insan kaynakları",
-      "Müşteri ve bayi portalları",
-      "Mobil uygulama ve entegrasyonlar",
-    ],
-    cta: "Firmanız için konuşalım",
-  },
-  {
-    key: "esnaf",
-    eyebrow: "Küçük işletmeler ve esnaf için",
-    title: "Çözüm ortağınız olayım",
-    body:
-      "Dükkânınız, servisiniz ya da salonunuz için hazır ama size göre ayarlanan uygulamalar. Kurulum, eğitim ve destek benden; siz işinize bakın.",
-    items: [
-      "Stok takibi ve POS",
-      "Ön muhasebe",
-      "Randevu ve rezervasyon",
-      "Teknik servis ve oto servis takibi",
-      "Web sitesi ve Google görünürlüğü",
-      "Kurulum, eğitim ve sürekli destek",
-    ],
-    cta: "İşletmem için bilgi al",
-  },
-  {
-    key: "bireysel",
-    eyebrow: "Bireyler ve girişimciler için",
-    title: "Fikrinizi uygulamaya dönüştüreyim",
-    body:
-      "Aklınızda bir uygulama fikri mi var? Tasarımdan App Store ve Google Play yayınına kadar baştan sona ben yapayım; siz sadece fikrinizi anlatın.",
-    items: [
-      "iOS ve Android uygulama",
-      "Girişim MVP'si",
-      "Web uygulaması ve e-ticaret",
-      "Yapay zekâ destekli özellikler",
-      "Abonelik ve uygulama içi satın alma",
-      "App Store yayını ve büyüme",
-    ],
-    cta: "Fikrimi anlatayım",
-  },
-  {
-    key: "danismanlik",
-    eyebrow: "Danışmanlık",
-    title: "Kendi uygulamanızı yapın, ben yanınızdayım",
-    body:
-      "Uygulamasını kendisi geliştirmek isteyenlere ya da ekibine yön vermek isteyenlere birebir danışmanlık. 10 uygulama yayınlarken öğrendiklerimi size aktarıyorum.",
-    items: [
-      "Fikir doğrulama ve kapsam",
-      "Teknik yol haritası",
-      "Cursor ve Claude ile birebir mentorluk",
-      "Kod ve mimari incelemesi",
-      "App Store yayın desteği",
-      "Gelir modeli ve ASO",
-    ],
-    cta: "Danışmanlık al",
-  },
-];
-
 export const steps = [
   { title: "Dinlerim", body: "İşletmenize gelir, işin bugün nasıl yürüdüğünü yerinde görürüm." },
   { title: "Kurarım", body: "Hazır uygulamayı size göre ayarlar ya da size özel sistemi geliştiririm." },
   { title: "Öğretirim", body: "Ekibinize kullanımı gösterir, eski verilerinizi taşırım." },
   { title: "Yanınızdayım", body: "Güncellemeler ve destek devam eder; işiniz büyüdükçe yazılım da büyür." },
-];
-
-export const posts = [
-  { title: "Esnaf için stok takibi: defterden telefona geçiş", tag: "Küçük işletme", status: "Yakında" },
-  { title: "Bir üretim firmasının bütün akışını tek panele taşımak", tag: "Vaka çalışması", status: "Yakında" },
-  { title: "Tek kişilik yazılım ekibi: yapay zekâ ile çalışma düzenim", tag: "Yapay zekâ", status: "Yakında" },
 ];
 
 export const course = {
@@ -481,3 +407,15 @@ export const consulting = {
     { name: "Ekip danışmanlığı", detail: "Yazılım ekibinize mimari, süreç ve yapay zekâ araçları desteği." },
   ],
 };
+
+// Girişte portrenin yanında sırayla beliren bildirimler.
+export const notifications = [
+  { icon: "✓", title: "Randevu onaylandı", detail: "Saç + Sakal · Yarın 14:30 · Usta Emre", color: "#eab308" },
+  { icon: "🛍", title: "Yeni sipariş geldi", detail: "El yapımı seramik kupa · ₺480", color: "#ec4899" },
+  { icon: "🏋", title: "Yerin ayrıldı", detail: "HIIT · Bugün 19:00 · 12/14 kişi", color: "#f97316" },
+  { icon: "🚀", title: "Uygulaman yayında", detail: "App Store incelemesi onaylandı", color: "#3b82f6" },
+  { icon: "📦", title: "Kritik stok", detail: "Süt · 6 adet kaldı · siparişe eklendi", color: "#10b981" },
+  { icon: "🍽", title: "Masa rezervasyonu", detail: "4 kişi · Cumartesi 20:30 · Teras", color: "#f59e0b" },
+  { icon: "💬", title: "Mentorluk görüşmesi", detail: "Yarın 10:00 · App Store yayın planı", color: "#8b5cf6" },
+  { icon: "🔧", title: "Aracınız hazır", detail: "Periyodik bakım tamamlandı", color: "#ef4444" },
+];

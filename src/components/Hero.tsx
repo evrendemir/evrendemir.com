@@ -3,7 +3,7 @@
 import { AnimatePresence, motion, useMotionValue, useScroll, useSpring, useTransform, type MotionValue } from "framer-motion";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
-import { apps, profile, solutions } from "@/content/site";
+import { apps, notifications, profile } from "@/content/site";
 import { MaskText } from "./Reveal";
 
 const START = 1.0; // açılış ekranı kalktıktan sonra
@@ -42,13 +42,71 @@ function RotatingPitch() {
   );
 }
 
+// Telefon bildirimi gibi sırayla gelen mesajlar: yenisi alttan kayarak gelir, eskisi arkaya küçülüp kaybolur.
+function NotificationStack() {
+  const [i, setI] = useState(0);
+  useEffect(() => {
+    const t = setInterval(() => setI((n) => (n + 1) % notifications.length), 2600);
+    return () => clearInterval(t);
+  }, []);
+  const prev = notifications[(i - 1 + notifications.length) % notifications.length];
+  const cur = notifications[i];
+
+  return (
+    <div className="relative h-[68px] w-[300px]">
+      {/* arkadaki bir önceki bildirim */}
+      <motion.div
+        key={"back-" + i}
+        className="glass absolute inset-x-4 top-0 h-full rounded-2xl"
+        initial={{ y: 0, scale: 1, opacity: 0.9 }}
+        animate={{ y: -12, scale: 0.92, opacity: 0.35 }}
+        transition={{ duration: 0.6, ease }}
+        aria-hidden
+      >
+        <div className="flex items-center gap-3 p-3 opacity-60">
+          <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl text-white" style={{ background: prev.color }}>
+            {prev.icon}
+          </span>
+          <p className="truncate text-sm">{prev.title}</p>
+        </div>
+      </motion.div>
+      <AnimatePresence mode="popLayout" initial={false}>
+        <motion.div
+          key={cur.title}
+          className="glass absolute inset-0 flex items-center gap-3 rounded-2xl p-3 pr-4 shadow-2xl shadow-black/50"
+          initial={{ y: 40, opacity: 0, scale: 0.9, filter: "blur(4px)" }}
+          animate={{ y: 0, opacity: 1, scale: 1, filter: "blur(0px)" }}
+          exit={{ y: -12, opacity: 0, scale: 0.92 }}
+          transition={{ type: "spring", stiffness: 260, damping: 24 }}
+        >
+          <motion.span
+            className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl text-white"
+            style={{ background: cur.color }}
+            initial={{ scale: 0.5, rotate: -20 }}
+            animate={{ scale: 1, rotate: 0 }}
+            transition={{ type: "spring", stiffness: 400, damping: 15, delay: 0.1 }}
+          >
+            {cur.icon}
+          </motion.span>
+          <div className="min-w-0 flex-1">
+            <div className="flex items-baseline justify-between gap-2">
+              <p className="truncate text-sm font-medium">{cur.title}</p>
+              <span className="shrink-0 text-[10px] text-muted">şimdi</span>
+            </div>
+            <p className="truncate text-xs text-muted">{cur.detail}</p>
+          </div>
+        </motion.div>
+      </AnimatePresence>
+    </div>
+  );
+}
+
 // Portre: fareyle hafifçe eğilir, etrafında uygulamadan bildirimler süzülür.
 function Portrait({ mx, my }: { mx: MotionValue<number>; my: MotionValue<number> }) {
   const rotateY = useSpring(useTransform(mx, [0, 1], [8, -8]), { stiffness: 60, damping: 18 });
   const rotateX = useSpring(useTransform(my, [0, 1], [-6, 6]), { stiffness: 60, damping: 18 });
   const chipX = useSpring(useTransform(mx, [0, 1], [18, -18]), { stiffness: 50, damping: 18 });
   const chipY = useSpring(useTransform(my, [0, 1], [14, -14]), { stiffness: 50, damping: 18 });
-  const booking = solutions[1];
 
   return (
     <motion.div
@@ -63,7 +121,7 @@ function Portrait({ mx, my }: { mx: MotionValue<number>; my: MotionValue<number>
         <div className="absolute inset-0 bg-gradient-to-t from-bg/70 via-transparent to-transparent" />
       </motion.div>
 
-      {/* Randevu bildirimi */}
+      {/* Sırayla değişen bildirimler */}
       <motion.div
         className="absolute -left-14 top-[56%] xl:-left-24"
         style={{ x: chipX, y: chipY }}
@@ -72,13 +130,7 @@ function Portrait({ mx, my }: { mx: MotionValue<number>; my: MotionValue<number>
         transition={{ delay: START + 0.9, duration: 0.8, ease }}
       >
         <motion.div animate={{ y: [0, -8, 0] }} transition={{ repeat: Infinity, duration: 5, ease: "easeInOut" }}>
-          <div className="glass flex items-center gap-3 rounded-2xl p-3 pr-5 shadow-2xl shadow-black/50">
-            <span className="flex h-10 w-10 items-center justify-center rounded-xl text-white" style={{ background: booking.color }}>✓</span>
-            <div>
-              <p className="text-sm font-medium">{booking.widget.status}</p>
-              <p className="text-xs text-muted">{booking.widget.title} · {booking.widget.detail}</p>
-            </div>
-          </div>
+          <NotificationStack />
         </motion.div>
       </motion.div>
 

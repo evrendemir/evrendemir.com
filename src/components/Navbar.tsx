@@ -7,7 +7,7 @@ const links = [
   { href: "#cozumler", label: "Çözümler" },
   { href: "#bireysel", label: "Bireysel" },
   { href: "#uygulamalar", label: "Uygulamalar" },
-  { href: "#hizmetler", label: "Hizmetler" },
+  { href: "#surec", label: "Süreç" },
   { href: "#iletisim", label: "İletişim" },
 ];
 

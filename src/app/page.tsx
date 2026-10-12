@@ -9,7 +9,6 @@ import Preloader from "@/components/Preloader";
 import Services from "@/components/Services";
 import SmoothScroll from "@/components/SmoothScroll";
 import Solutions from "@/components/Solutions";
-import Writing from "@/components/Writing";
 
 export default function Home() {
   return (
@@ -25,7 +24,6 @@ export default function Home() {
         <Personal />
         <Apps />
         <Services />
-        <Writing />
       </main>
       <Contact />
     </>

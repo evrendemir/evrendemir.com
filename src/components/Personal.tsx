@@ -52,13 +52,13 @@ export default function Personal() {
       </div>
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        {personalProjects.map((p, i) => (
+        {personalProjects.slice(0, 4).map((p, i) => (
           <ProjectCard key={p.slug} p={p} index={i} />
         ))}
       </div>
 
       {/* Danışmanlık */}
-      <Reveal className="mt-28 scroll-mt-28">
+      <Reveal className="mt-20 scroll-mt-28">
         <span id="danismanlik" className="block -translate-y-28" />
         <div className="gradient-border relative grid overflow-hidden rounded-[2rem] bg-bg-soft lg:grid-cols-2">
           <div className="relative aspect-[4/3] lg:aspect-auto">

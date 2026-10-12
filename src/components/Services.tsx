@@ -2,7 +2,7 @@
 
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
-import { offers, steps } from "@/content/site";
+import { steps } from "@/content/site";
 import { MaskText, Reveal, SectionLabel } from "./Reveal";
 
 function Steps() {
@@ -11,10 +11,7 @@ function Steps() {
   const width = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
 
   return (
-    <div ref={ref} className="mt-28">
-      <Reveal>
-        <p className="mb-10 font-mono text-xs uppercase tracking-[0.18em] text-muted">Nasıl çalışıyoruz</p>
-      </Reveal>
+    <div ref={ref} className="mt-16">
       <div className="relative">
         <div className="absolute left-0 right-0 top-[7px] hidden h-px bg-line md:block" />
         <motion.div className="absolute left-0 top-[7px] hidden h-px bg-gradient-to-r from-accent to-accent-2 md:block" style={{ width }} />
@@ -37,61 +34,12 @@ function Steps() {
 
 export default function Services() {
   return (
-    <section id="hizmetler" className="relative overflow-hidden border-y border-line bg-bg-soft/40">
-      <div aria-hidden className="pointer-events-none absolute left-1/2 top-0 h-[40rem] w-[60rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(255,138,76,0.12),transparent_65%)]" />
-      <div className="relative mx-auto max-w-7xl px-4 py-28 md:px-10 md:py-40">
-        <SectionLabel index="05">Neler yapıyorum</SectionLabel>
-        <h2 className="mb-16 text-5xl font-semibold leading-[0.95] tracking-[-0.045em] md:text-8xl">
-          <MaskText lines={[<span key="a" className="text-metal">Firmadan esnafa,</span>, <span key="s" className="text-gradient font-serif font-normal italic">fikri olan herkese.</span>]} />
+    <section id="surec" className="relative border-y border-line bg-bg-soft/40">
+      <div className="mx-auto max-w-7xl px-4 py-24 md:px-10 md:py-32">
+        <SectionLabel index="05">Nasıl çalışıyoruz</SectionLabel>
+        <h2 className="text-4xl font-semibold leading-[0.95] tracking-[-0.045em] md:text-7xl">
+          <MaskText lines={[<span key="a" className="text-metal">Dört adımda,</span>, <span key="s" className="text-gradient font-serif font-normal italic">fikirden yayına.</span>]} />
         </h2>
-
-        <div className="grid gap-5 lg:grid-cols-2">
-          {offers.map((o, i) => (
-            <Reveal key={o.key} delay={i * 0.12} className="h-full">
-              <motion.div
-                whileHover={{ y: -6 }}
-                transition={{ type: "spring", stiffness: 300, damping: 24 }}
-                className={`gradient-border group relative flex h-full flex-col overflow-hidden rounded-[2rem] p-8 md:p-12 ${
-                  i % 3 === 0 ? "bg-bg" : i % 3 === 1 ? "bg-gradient-to-br from-[#2a1609] via-bg to-bg" : "bg-gradient-to-br from-[#14122b] via-bg to-bg"
-                }`}
-              >
-                <div
-                  aria-hidden
-                  className="pointer-events-none absolute -bottom-40 -right-40 h-[28rem] w-[28rem] rounded-full opacity-30 transition-opacity duration-700 group-hover:opacity-70"
-                  style={{ background: i % 2 === 0 ? "radial-gradient(circle, rgba(130,110,255,0.6), transparent 70%)" : "radial-gradient(circle, var(--accent), transparent 70%)" }}
-                />
-                <p className="relative font-mono text-xs uppercase tracking-[0.18em] text-accent">{o.eyebrow}</p>
-                <h3 className="relative mt-4 text-4xl font-semibold tracking-tight md:text-5xl">{o.title}</h3>
-                <p className="relative mt-5 max-w-md leading-relaxed text-muted">{o.body}</p>
-                <ul className="relative mt-10 grid gap-x-8 sm:grid-cols-2">
-                  {o.items.map((it, j) => (
-                    <motion.li
-                      key={it}
-                      initial={{ opacity: 0, x: -12 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: 0.2 + j * 0.06 }}
-                      className="flex items-center gap-3 border-t border-line py-3.5 text-[15px]"
-                    >
-                      <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-accent/15 text-[10px] text-accent">✓</span>
-                      {it}
-                    </motion.li>
-                  ))}
-                </ul>
-                <a
-                  href="#iletisim"
-                  className={`shine relative mt-auto inline-flex w-fit items-center gap-2 overflow-hidden rounded-full px-6 py-3.5 text-sm font-medium ${
-                    i % 2 === 0 ? "glass text-fg" : "bg-fg text-bg"
-                  }`}
-                  style={{ marginTop: "2.5rem" }}
-                >
-                  {o.cta} →
-                </a>
-              </motion.div>
-            </Reveal>
-          ))}
-        </div>
-
         <Steps />
       </div>
     </section>

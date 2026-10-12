@@ -3,7 +3,8 @@
 import { motion, useMotionValue, useScroll, useSpring, useTransform } from "framer-motion";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
-import { profile, socials } from "@/content/site";
+import { course, profile, socials } from "@/content/site";
+import SubscribeForm from "./SubscribeForm";
 import { MaskText, Reveal } from "./Reveal";
 
 // İmlece doğru hafifçe çekilen buton.
@@ -69,7 +70,20 @@ export default function Contact() {
           </a>
         </Reveal>
 
-        <div className="mt-24 grid gap-10 border-t border-line py-10 text-sm text-muted md:grid-cols-3">
+        <Reveal className="mt-16">
+          <div className="gradient-border flex flex-col gap-6 rounded-[1.6rem] bg-bg-soft p-6 md:flex-row md:items-center md:justify-between md:p-8">
+            <div className="max-w-md">
+              <p className="font-mono text-xs uppercase tracking-[0.18em] text-accent">{course.badge}</p>
+              <p className="mt-2 text-xl font-medium tracking-tight md:text-2xl">{course.title}</p>
+              <p className="mt-1 text-sm text-muted">Eğitim hazır olduğunda ilk sen duy.</p>
+            </div>
+            <div className="w-full md:max-w-sm">
+              <SubscribeForm cta="Haber ver" />
+            </div>
+          </div>
+        </Reveal>
+
+        <div className="mt-20 grid gap-10 border-t border-line py-10 text-sm text-muted md:grid-cols-3">
           <div>
             <p className="mb-3 font-mono text-xs uppercase tracking-[0.18em]">Konum</p>
             <p className="text-fg">

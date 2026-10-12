@@ -131,40 +131,7 @@ function Showcase() {
   );
 }
 
-function Card({ s, index }: { s: Solution; index: number }) {
-  return (
-    <Reveal delay={(index % 3) * 0.08}>
-      <a href="#iletisim" className="group block">
-        <div className="gradient-border relative aspect-[4/3] overflow-hidden rounded-[1.6rem] bg-bg-soft">
-          <Image
-            src={`/solutions/${s.slug}.jpg`}
-            alt={s.sector}
-            fill
-            sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-            className="object-cover transition-transform duration-[1.4s] ease-out group-hover:scale-110"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/0 to-black/0" />
-          <Widget
-            s={s}
-            className="absolute bottom-4 left-4 right-4 translate-y-3 opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100"
-          />
-        </div>
-        <div className="mt-4 flex items-start justify-between gap-4">
-          <div>
-            <p className="text-sm text-muted">{s.sector}</p>
-            <h3 className="mt-1 text-xl font-medium tracking-tight">{s.product}</h3>
-          </div>
-          <span className="mt-1 h-2.5 w-2.5 shrink-0 rounded-full" style={{ background: s.color }} />
-        </div>
-      </a>
-    </Reveal>
-  );
-}
-
 export default function Solutions() {
-  const [showAll, setShowAll] = useState(false);
-  const list = showAll ? solutions : solutions.slice(0, 9);
-
   return (
     <section id="cozumler" className="relative mx-auto max-w-7xl px-4 py-28 md:px-10 md:py-40">
       <SectionLabel index="02">Sektörünüze hazır çözümler</SectionLabel>
@@ -181,18 +148,6 @@ export default function Solutions() {
         <Showcase />
       </Reveal>
 
-      <div className="mt-24 grid gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
-        {list.map((s, i) => (
-          <Card key={s.slug} s={s} index={i} />
-        ))}
-      </div>
-      {!showAll && (
-        <Reveal className="mt-14 flex justify-center">
-          <button onClick={() => setShowAll(true)} className="glass rounded-full px-6 py-3.5 text-sm font-medium transition-colors hover:bg-white/10">
-            Tüm sektörleri gör ({solutions.length})
-          </button>
-        </Reveal>
-      )}
     </section>
   );
 }
