@@ -142,71 +142,6 @@ export const apps: App[] = [
   },
 ];
 
-export type Project = {
-  slug: string;
-  title: string;
-  category: string;
-  year: string;
-  summary: string;
-  tags: string[];
-  href?: string;
-  image?: string;
-  accent: [string, string];
-};
-
-export const projects: Project[] = [
-  {
-    slug: "yordem-panel",
-    title: "Yordem Yönetim Paneli",
-    category: "Firmaya özel ERP",
-    year: "2026",
-    summary:
-      "Bir etiket üretim firmasının siparişten iş emrine, satın almadan sevkiyata, finanstan kaliteye kadar bütün akışını tek ekrandan yöneten sistem.",
-    tags: ["Next.js", "Supabase", "25+ modül"],
-    accent: ["#ff6a3d", "#ffb547"],
-  },
-  {
-    slug: "yordem-etiket",
-    title: "Yordem Etiket",
-    category: "Kurumsal web sitesi",
-    year: "2026",
-    summary: "Etiket üreticisi için çok dilli kurumsal site ve sitenin Google'daki durumunu takip eden SEO raporlama aracı.",
-    tags: ["Next.js", "SEO", "Çok dilli"],
-    image: "/projects/yordem-etiket.jpg",
-    accent: ["#3d7bff", "#5ee7ff"],
-  },
-  {
-    slug: "linkedin-otomasyon",
-    title: "LinkedIn Bağlantı Asistanı",
-    category: "Satış otomasyonu",
-    year: "2026",
-    summary:
-      "Panelden onaylanan bağlantı isteklerini ve mesajları insan hızında gönderen, kota ve güvenlik kurallarıyla kendini durduran asistan.",
-    tags: ["Python", "Tarayıcı otomasyonu", "Panel entegrasyonu"],
-    accent: ["#8b5cf6", "#ec4899"],
-  },
-  {
-    slug: "yoga-ve-yagmur",
-    title: "Yoga ve Yağmur",
-    category: "Online eğitim sitesi",
-    year: "2025",
-    summary: "Online yoga dersleri veren bir eğitmen için sakin, nefes alan bir tasarımla hazırlanmış eğitim sitesi.",
-    tags: ["Next.js", "Tasarım", "İçerik"],
-    image: "/projects/yoga-ve-yagmur.jpg",
-    accent: ["#22c55e", "#a3e635"],
-  },
-  {
-    slug: "tufting-izmir",
-    title: "Tufting İzmir",
-    category: "Atölye vitrini",
-    year: "2025",
-    summary: "El yapımı dekoratif halı atölyesi için kişiye özel sipariş almaya odaklı, hafif ve hızlı vitrin sitesi.",
-    tags: ["HTML", "CSS", "JavaScript"],
-    image: "/projects/tufting-izmir.jpg",
-    accent: ["#f43f5e", "#fb923c"],
-  },
-];
-
 // İki ana hizmet: firmalar ve küçük işletmeler.
 export const offers = [
   {
@@ -263,3 +198,162 @@ export const course = {
     "App Store'a 10 uygulama çıkarırken öğrendiklerimi adım adım bir eğitime dönüştürüyorum. Kod geçmişin olmasa bile yapay zekâ ile fikrini yayına taşıyabilmen için. İlk duyan sen ol.",
   points: ["Kurulumdan App Store'a", "Gerçek bir uygulama üzerinden", "Topluluk ve canlı oturumlar"],
 };
+
+// Sektörlere göre örnek çözümler. Görseller /public/solutions: çoğu yapay zekâ ile üretildi;
+// spa, sürücü kursu, etüt, market, emlak ve fotoğraf görselleri Unsplash (ücretsiz lisans).
+export type Solution = {
+  slug: string;
+  sector: string;
+  product: string;
+  features: string[];
+  // Görselin üstündeki küçük uygulama kartı
+  widget: { title: string; detail: string; status: string };
+  color: string;
+};
+
+export const solutions: Solution[] = [
+  {
+    slug: "fitness",
+    sector: "Fitness stüdyoları",
+    product: "Ders rezervasyon uygulaması",
+    features: ["Grup dersi kontenjanı", "Paket ve üyelik takibi", "Bekleme listesi ve hatırlatma"],
+    widget: { title: "HIIT · 19:00", detail: "12 / 14 kişi", status: "Yerin ayrıldı" },
+    color: "#f97316",
+  },
+  {
+    slug: "berber",
+    sector: "Berberler",
+    product: "Online randevu sistemi",
+    features: ["Usta ve hizmet seçimi", "WhatsApp ile hatırlatma", "Gelmeyen müşteri takibi"],
+    widget: { title: "Saç + Sakal", detail: "Yarın 14:30 · Usta Emre", status: "Randevu onaylandı" },
+    color: "#eab308",
+  },
+  {
+    slug: "kuafor",
+    sector: "Kuaför ve güzellik salonları",
+    product: "Randevu ve müşteri kartı",
+    features: ["Personel takvimi", "Müşteri geçmişi ve notlar", "Kampanya bildirimleri"],
+    widget: { title: "Fön + Boya", detail: "Cuma 11:00 · Selin", status: "Randevu onaylandı" },
+    color: "#ec4899",
+  },
+  {
+    slug: "pilates",
+    sector: "Pilates ve yoga stüdyoları",
+    product: "Reformer seans planlayıcı",
+    features: ["Alet bazlı rezervasyon", "Ders kredisi takibi", "Eğitmen programı"],
+    widget: { title: "Reformer · 08:30", detail: "3 alet boş", status: "Seans ayrıldı" },
+    color: "#14b8a6",
+  },
+  {
+    slug: "dis",
+    sector: "Diş klinikleri",
+    product: "Hasta randevu ve takip",
+    features: ["Doktor bazlı takvim", "Tedavi planı ve ödemeler", "SMS hatırlatma"],
+    widget: { title: "Kontrol muayenesi", detail: "Pazartesi 10:15", status: "Hatırlatma gönderildi" },
+    color: "#06b6d4",
+  },
+  {
+    slug: "veteriner",
+    sector: "Veteriner klinikleri",
+    product: "Pati karnesi ve randevu",
+    features: ["Aşı takvimi", "Evcil hayvan kartı", "Sahibe otomatik hatırlatma"],
+    widget: { title: "Karma aşı · Zeytin", detail: "3 gün sonra", status: "Hatırlatma kuruldu" },
+    color: "#22c55e",
+  },
+  {
+    slug: "restoran",
+    sector: "Restoranlar",
+    product: "Masa rezervasyon sistemi",
+    features: ["Masa planı", "Kapora ve iptal kuralları", "Özel gün notları"],
+    widget: { title: "4 kişilik masa", detail: "Cumartesi 20:30 · Teras", status: "Rezervasyon alındı" },
+    color: "#f59e0b",
+  },
+  {
+    slug: "kafe",
+    sector: "Kafeler",
+    product: "QR menü ve sadakat kartı",
+    features: ["Masadan QR ile sipariş", "Damga kartı", "Günün menüsü"],
+    widget: { title: "Sadakat kartı", detail: "9 / 10 kahve", status: "Sıradaki bizden" },
+    color: "#a16207",
+  },
+  {
+    slug: "halisaha",
+    sector: "Halı sahalar",
+    product: "Saha kiralama uygulaması",
+    features: ["Saat saat doluluk", "Kapora ile kesin kayıt", "Takım ve maç kayıtları"],
+    widget: { title: "Saha 2 · 21:00", detail: "1 saat · 10 kişi", status: "Saha kiralandı" },
+    color: "#16a34a",
+  },
+  {
+    slug: "otel",
+    sector: "Butik oteller ve pansiyonlar",
+    product: "Oda rezervasyon motoru",
+    features: ["Komisyonsuz direkt rezervasyon", "Doluluk takvimi", "Online ödeme"],
+    widget: { title: "Deniz manzaralı oda", detail: "3 gece · 2 kişi", status: "Rezervasyon onaylandı" },
+    color: "#0ea5e9",
+  },
+  {
+    slug: "otoservis",
+    sector: "Oto servisler",
+    product: "Servis ve bakım takibi",
+    features: ["Araç geçmişi", "Fotoğraflı işlem raporu", "Bakım zamanı hatırlatma"],
+    widget: { title: "Periyodik bakım", detail: "35 ABC 123", status: "Aracınız hazır" },
+    color: "#ef4444",
+  },
+  {
+    slug: "teknikservis",
+    sector: "Teknik servisler",
+    product: "Arıza ve iş emri takibi",
+    features: ["Cihaz kabul formu", "Müşteriye durum bildirimi", "Parça stoğu"],
+    widget: { title: "Ekran değişimi", detail: "Kayıt #2481", status: "Onarım tamamlandı" },
+    color: "#6366f1",
+  },
+  {
+    slug: "spa",
+    sector: "Spa ve masaj salonları",
+    product: "Seans ve paket yönetimi",
+    features: ["Terapist ve oda takvimi", "Hediye kartı", "Paket bakiyesi"],
+    widget: { title: "Aromaterapi · 60 dk", detail: "Bugün 17:00", status: "Seans ayrıldı" },
+    color: "#d97706",
+  },
+  {
+    slug: "surucu",
+    sector: "Sürücü kursları",
+    product: "Direksiyon dersi planlayıcı",
+    features: ["Eğitmen ve araç takvimi", "Ders hakkı takibi", "Sınav tarihi hatırlatma"],
+    widget: { title: "Direksiyon dersi", detail: "Perşembe 09:00", status: "Ders planlandı" },
+    color: "#3b82f6",
+  },
+  {
+    slug: "egitim",
+    sector: "Etüt merkezleri ve dershaneler",
+    product: "Ders programı ve veli paneli",
+    features: ["Haftalık program", "Yoklama ve ödev takibi", "Veliye bildirim"],
+    widget: { title: "Matematik etüdü", detail: "Salı 16:00 · Derslik 3", status: "Veliye bildirildi" },
+    color: "#8b5cf6",
+  },
+  {
+    slug: "market",
+    sector: "Market ve bakkallar",
+    product: "Stok, kasa ve veresiye",
+    features: ["Barkodlu satış", "Veresiye defteri", "Kritik stok uyarısı"],
+    widget: { title: "Kritik stok", detail: "Süt · 6 adet kaldı", status: "Sipariş listesine eklendi" },
+    color: "#10b981",
+  },
+  {
+    slug: "emlak",
+    sector: "Emlak ofisleri",
+    product: "Portföy ve müşteri eşleştirme",
+    features: ["İlan portföyü", "Talebe uygun eşleştirme", "Gösterim randevusu"],
+    widget: { title: "3+1 · Karşıyaka", detail: "Gösterim yarın 18:00", status: "Müşteri eşleşti" },
+    color: "#64748b",
+  },
+  {
+    slug: "foto",
+    sector: "Fotoğraf stüdyoları",
+    product: "Çekim takvimi ve teslim",
+    features: ["Çekim paketi seçimi", "Kapora", "Online fotoğraf teslimi"],
+    widget: { title: "Ürün çekimi", detail: "Çarşamba 13:00", status: "Fotoğraflar hazır" },
+    color: "#e11d48",
+  },
+];

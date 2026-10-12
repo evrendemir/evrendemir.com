@@ -3,7 +3,7 @@
 import { AnimatePresence, motion, useMotionValue, useScroll, useSpring, useTransform, type MotionValue } from "framer-motion";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
-import { apps, profile } from "@/content/site";
+import { apps, profile, solutions } from "@/content/site";
 import { MaskText } from "./Reveal";
 
 const START = 1.7; // açılış ekranı kalktıktan sonra
@@ -33,52 +33,64 @@ function RotatingRole() {
   );
 }
 
-// Uygulamalarımın ikonlarıyla dolu, fareyle eğilen cam telefon ekranı.
-function HomeScreen({ mx, my }: { mx: MotionValue<number>; my: MotionValue<number> }) {
-  const rotateY = useSpring(useTransform(mx, [0, 1], [14, -14]), { stiffness: 60, damping: 18 });
-  const rotateX = useSpring(useTransform(my, [0, 1], [-10, 10]), { stiffness: 60, damping: 18 });
-  const time = new Intl.DateTimeFormat("tr-TR", { hour: "2-digit", minute: "2-digit", timeZone: "Europe/Istanbul" }).format(new Date());
+// Portre: fareyle hafifçe eğilir, etrafında uygulamadan bildirimler süzülür.
+function Portrait({ mx, my }: { mx: MotionValue<number>; my: MotionValue<number> }) {
+  const rotateY = useSpring(useTransform(mx, [0, 1], [8, -8]), { stiffness: 60, damping: 18 });
+  const rotateX = useSpring(useTransform(my, [0, 1], [-6, 6]), { stiffness: 60, damping: 18 });
+  const chipX = useSpring(useTransform(mx, [0, 1], [18, -18]), { stiffness: 50, damping: 18 });
+  const chipY = useSpring(useTransform(my, [0, 1], [14, -14]), { stiffness: 50, damping: 18 });
+  const booking = solutions[1];
 
   return (
     <motion.div
-      className="relative mx-auto w-[300px] [perspective:1400px] xl:w-[330px]"
-      initial={{ opacity: 0, y: 60, rotateX: 25 }}
-      animate={{ opacity: 1, y: 0, rotateX: 0 }}
-      transition={{ duration: 1.4, ease, delay: START + 0.2 }}
+      className="relative mx-auto w-full max-w-[440px] [perspective:1400px]"
+      initial={{ opacity: 0, y: 60 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 1.4, ease, delay: START + 0.15 }}
     >
-      <motion.div style={{ rotateX, rotateY, transformStyle: "preserve-3d" }} className="relative">
-        <div aria-hidden className="absolute -inset-16 rounded-full bg-[radial-gradient(circle,rgba(255,138,76,0.35),transparent_65%)] blur-2xl" />
-        <motion.div
-          animate={{ y: [0, -10, 0] }}
-          transition={{ repeat: Infinity, duration: 6, ease: "easeInOut" }}
-          className="gradient-border relative aspect-[9/19] overflow-hidden rounded-[3rem] bg-gradient-to-b from-white/[0.09] to-white/[0.02] p-5 shadow-[0_40px_120px_-20px_rgba(0,0,0,0.9)] backdrop-blur-2xl"
-        >
-          <div className="mx-auto mb-6 h-6 w-24 rounded-full bg-black/70" />
-          <div className="mb-8 flex items-center justify-between px-2 text-xs font-medium text-fg/80">
-            <span className="tabular-nums" suppressHydrationWarning>{time}</span>
-            <span className="font-mono text-[10px] tracking-wider text-muted">EVREN</span>
+      <div aria-hidden className="absolute -inset-10 rounded-full bg-[radial-gradient(circle,rgba(255,138,76,0.35),transparent_65%)] blur-2xl" />
+      <motion.div style={{ rotateX, rotateY }} className="gradient-border relative aspect-[3/4] overflow-hidden rounded-[2.5rem] shadow-[0_40px_120px_-20px_rgba(0,0,0,0.9)]">
+        <Image src="/me/portre-kollar.jpg" alt="Evren Demir" fill priority sizes="440px" className="object-cover" />
+        <div className="absolute inset-0 bg-gradient-to-t from-bg/70 via-transparent to-transparent" />
+      </motion.div>
+
+      {/* Randevu bildirimi */}
+      <motion.div
+        className="absolute -left-14 top-[56%] xl:-left-24"
+        style={{ x: chipX, y: chipY }}
+        initial={{ opacity: 0, x: -30 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ delay: START + 0.9, duration: 0.8, ease }}
+      >
+        <motion.div animate={{ y: [0, -8, 0] }} transition={{ repeat: Infinity, duration: 5, ease: "easeInOut" }}>
+          <div className="glass flex items-center gap-3 rounded-2xl p-3 pr-5 shadow-2xl shadow-black/50">
+            <span className="flex h-10 w-10 items-center justify-center rounded-xl text-white" style={{ background: booking.color }}>✓</span>
+            <div>
+              <p className="text-sm font-medium">{booking.widget.status}</p>
+              <p className="text-xs text-muted">{booking.widget.title} · {booking.widget.detail}</p>
+            </div>
           </div>
-          <div className="grid grid-cols-3 gap-x-3 gap-y-5">
-            {apps.slice(0, 9).map((a, i) => (
-              <motion.div
-                key={a.id}
-                className="flex flex-col items-center gap-1.5"
-                initial={{ opacity: 0, scale: 0.5 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: START + 0.7 + i * 0.06, type: "spring", stiffness: 260, damping: 18 }}
-              >
-                <Image src={`/apps/${a.id}.png`} alt="" width={128} height={128} className="h-[60px] w-[60px] rounded-[22%] shadow-lg shadow-black/40" />
-                <span className="w-full truncate text-center text-[10px] text-fg/70">{a.name}</span>
-              </motion.div>
-            ))}
+        </motion.div>
+      </motion.div>
+
+      {/* Uygulama ikonları */}
+      <motion.div
+        className="absolute -bottom-8 -right-8 xl:-right-14"
+        style={{ x: chipX, y: chipY }}
+        initial={{ opacity: 0, x: 30 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ delay: START + 1.1, duration: 0.8, ease }}
+      >
+        <motion.div animate={{ y: [0, 10, 0] }} transition={{ repeat: Infinity, duration: 6, ease: "easeInOut" }}>
+          <div className="glass rounded-2xl p-4 shadow-2xl shadow-black/50">
+            <div className="flex -space-x-3">
+              {apps.slice(0, 5).map((a) => (
+                <Image key={a.id} src={`/apps/${a.id}.png`} alt="" width={128} height={128} className="h-10 w-10 rounded-[22%] ring-2 ring-bg" />
+              ))}
+            </div>
+            <p className="mt-3 text-sm font-medium">{apps.length} App Store uygulaması</p>
+            <p className="text-xs text-muted">Tasarım, kod ve yayın</p>
           </div>
-          <div className="absolute inset-x-5 bottom-5 flex justify-around rounded-[1.6rem] bg-white/[0.07] p-3 backdrop-blur-xl">
-            {apps.slice(-1).concat(apps.slice(0, 3)).map((a) => (
-              <Image key={a.id} src={`/apps/${a.id}.png`} alt="" width={128} height={128} className="h-12 w-12 rounded-[22%]" />
-            ))}
-          </div>
-          {/* cam parlaması */}
-          <div aria-hidden className="pointer-events-none absolute inset-0 rounded-[3rem] bg-[linear-gradient(115deg,transparent_35%,rgba(255,255,255,0.08)_45%,transparent_55%)]" />
         </motion.div>
       </motion.div>
     </motion.div>
@@ -190,19 +202,17 @@ export default function Hero() {
         </div>
 
         <div className="hidden lg:block">
-          <HomeScreen mx={mx} my={my} />
+          <Portrait mx={mx} my={my} />
         </div>
 
-        {/* Mobilde ikon şeridi */}
+        {/* Mobilde portre */}
         <motion.div
-          className="flex gap-3 overflow-hidden lg:hidden"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: START + 0.8 }}
+          className="relative mx-auto aspect-[4/5] w-full max-w-sm overflow-hidden rounded-[2rem] lg:hidden"
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: START + 0.6, duration: 1, ease }}
         >
-          {apps.slice(0, 6).map((a) => (
-            <Image key={a.id} src={`/apps/${a.id}.png`} alt="" width={128} height={128} className="h-14 w-14 shrink-0 rounded-[22%] ring-1 ring-white/10" />
-          ))}
+          <Image src="/me/portre-kollar.jpg" alt="Evren Demir" fill sizes="100vw" className="object-cover" />
         </motion.div>
       </motion.div>
     </section>

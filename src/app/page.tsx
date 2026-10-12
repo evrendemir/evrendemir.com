@@ -7,7 +7,7 @@ import Navbar from "@/components/Navbar";
 import Preloader from "@/components/Preloader";
 import Services from "@/components/Services";
 import SmoothScroll from "@/components/SmoothScroll";
-import Work from "@/components/Work";
+import Solutions from "@/components/Solutions";
 import Writing from "@/components/Writing";
 
 export default function Home() {
@@ -20,8 +20,8 @@ export default function Home() {
       <main>
         <Hero />
         <About />
+        <Solutions />
         <Apps />
-        <Work />
         <Services />
         <Writing />
       </main>

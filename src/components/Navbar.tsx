@@ -4,9 +4,9 @@ import { AnimatePresence, motion, useMotionValueEvent, useScroll } from "framer-
 import { useState } from "react";
 
 const links = [
+  { href: "#cozumler", label: "Çözümler" },
   { href: "#uygulamalar", label: "Uygulamalar" },
   { href: "#hizmetler", label: "Hizmetler" },
-  { href: "#isler", label: "İşler" },
   { href: "#yazilar", label: "Yazılar" },
   { href: "#iletisim", label: "İletişim" },
 ];

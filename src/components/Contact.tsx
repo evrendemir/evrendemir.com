@@ -1,6 +1,7 @@
 "use client";
 
 import { motion, useMotionValue, useScroll, useSpring, useTransform } from "framer-motion";
+import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { profile, socials } from "@/content/site";
 import { MaskText, Reveal } from "./Reveal";
@@ -59,7 +60,8 @@ export default function Contact() {
         </div>
 
         <Reveal className="mt-16">
-          <a href={`mailto:${profile.email}`} className="group inline-flex items-center gap-3 text-2xl tracking-tight md:text-4xl">
+          <a href={`mailto:${profile.email}`} className="group inline-flex items-center gap-5 text-2xl tracking-tight md:text-4xl">
+            <Image src="/me/portre-masa.jpg" alt="Evren Demir" width={160} height={160} className="h-16 w-16 rounded-full object-cover ring-2 ring-white/10 md:h-20 md:w-20" />
             <span className="relative">
               {profile.email}
               <span className="absolute -bottom-1 left-0 h-px w-full origin-left bg-fg transition-transform duration-500 group-hover:scale-x-0" />

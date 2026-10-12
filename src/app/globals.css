@@ -132,6 +132,7 @@ html.lenis body {
   background-clip: text;
   color: transparent;
   padding-right: 0.08em;
+  display: inline-block;
 }
 
 .aurora {

@@ -62,7 +62,7 @@ function AppCard({ app, index, big = false }: { app: App; index: number; big?: b
 export default function Apps() {
   return (
     <section id="uygulamalar" className="relative mx-auto max-w-7xl px-4 py-28 md:px-10 md:py-40">
-      <SectionLabel index="02">App Store&apos;daki uygulamalarım</SectionLabel>
+      <SectionLabel index="03">App Store&apos;daki uygulamalarım</SectionLabel>
       <div className="mb-16 flex flex-col justify-between gap-6 md:flex-row md:items-end">
         <h2 className="text-5xl font-semibold leading-[0.95] tracking-[-0.045em] md:text-8xl">
           <MaskText lines={[<span key="a" className="text-metal">On uygulama,</span>, <span key="s" className="text-gradient font-serif font-normal italic">tek geliştirici.</span>]} />
