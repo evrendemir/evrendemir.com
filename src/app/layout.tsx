@@ -20,9 +20,9 @@ const jetbrainsMono = JetBrains_Mono({
   weight: ["400", "500"],
 });
 
-const title = "Evren Demir | Yazılım, otomasyon ve iOS";
+const title = "Evren Demir | Firmalar ve esnaf için yazılım";
 const description =
-  "İşletmeler için web siteleri, yönetim panelleri ve otomasyonlar geliştiriyorum. Şimdi de yapay zekâ ile iOS uygulamaları yapıyorum.";
+  "Firmalara özel ERP ve yönetim yazılımları; küçük işletmeler ve esnaf için stok, ön muhasebe, randevu ve servis takibi uygulamaları.";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://evrendemir.com"),
