@@ -1,4 +1,5 @@
 import About from "@/components/About";
+import Apps from "@/components/Apps";
 import Contact from "@/components/Contact";
 import Cursor from "@/components/Cursor";
 import Hero from "@/components/Hero";
@@ -19,6 +20,7 @@ export default function Home() {
       <main>
         <Hero />
         <About />
+        <Apps />
         <Work />
         <Services />
         <Writing />

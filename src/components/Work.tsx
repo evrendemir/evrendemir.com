@@ -1,11 +1,33 @@
 "use client";
 
+import Image from "next/image";
 import { motion, useMotionTemplate, useMotionValue, useSpring } from "framer-motion";
 import { projects, type Project } from "@/content/site";
 import { MaskText, Reveal, SectionLabel } from "./Reveal";
 
 function Cover({ project }: { project: Project }) {
   const [a, b] = project.accent;
+  if (project.image) {
+    return (
+      <div className="relative aspect-[4/3] overflow-hidden rounded-2xl bg-bg-soft">
+        <div className="absolute inset-0" style={{ background: `linear-gradient(135deg, ${a}66, ${b}33)` }} />
+        <div className="absolute inset-x-[7%] bottom-0 top-[9%] overflow-hidden rounded-t-xl border border-white/15 shadow-2xl shadow-black/50 transition-transform duration-700 group-hover:-translate-y-3">
+          <div className="flex h-6 items-center gap-1.5 bg-[#1d1d1f] px-3">
+            <span className="h-2 w-2 rounded-full bg-white/25" />
+            <span className="h-2 w-2 rounded-full bg-white/25" />
+            <span className="h-2 w-2 rounded-full bg-white/25" />
+          </div>
+          <Image
+            src={project.image}
+            alt={`${project.title} ekran görüntüsü`}
+            width={1440}
+            height={1000}
+            className="h-full w-full object-cover object-top transition-transform duration-[1.2s] ease-out group-hover:scale-105"
+          />
+        </div>
+      </div>
+    );
+  }
   return (
     <div className="relative aspect-[4/3] overflow-hidden rounded-2xl bg-bg-soft">
       <motion.div
@@ -37,11 +59,6 @@ function Cover({ project }: { project: Project }) {
           ))}
         </div>
       </div>
-      {project.status && (
-        <span className="absolute left-4 top-4 rounded-full bg-fg px-3 py-1 font-mono text-[11px] uppercase tracking-wider text-bg">
-          {project.status}
-        </span>
-      )}
     </div>
   );
 }
@@ -106,13 +123,13 @@ function Card({ project, index }: { project: Project; index: number }) {
 export default function Work() {
   return (
     <section id="isler" className="mx-auto max-w-7xl px-4 py-28 md:px-10 md:py-40">
-      <SectionLabel index="02">Seçili işler</SectionLabel>
+      <SectionLabel index="03">Seçili işler</SectionLabel>
       <div className="mb-20 flex flex-col justify-between gap-6 md:flex-row md:items-end">
         <h2 className="text-5xl font-semibold leading-[0.95] tracking-[-0.04em] md:text-8xl">
           <MaskText lines={["Gerçek işler,", <span key="s" className="font-serif font-normal italic text-accent">gerçek dertler.</span>]} />
         </h2>
         <Reveal className="max-w-sm text-muted">
-          <p>Her biri bir işletmenin gündelik bir sorununu çözmek için yapıldı.</p>
+          <p>Uygulamaların yanında firmalar için yaptığım sistemler, siteler ve otomasyonlar.</p>
         </Reveal>
       </div>
       <div className="grid gap-x-10 gap-y-20 md:grid-cols-2">

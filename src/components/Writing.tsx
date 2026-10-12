@@ -7,14 +7,14 @@ import SubscribeForm from "./SubscribeForm";
 export default function Writing() {
   return (
     <section id="yazilar" className="mx-auto max-w-7xl px-4 py-28 md:px-10 md:py-40">
-      <SectionLabel index="04">Yazılar ve bülten</SectionLabel>
+      <SectionLabel index="05">Yazılar ve bülten</SectionLabel>
       <div className="grid gap-16 lg:grid-cols-[1.1fr_1fr]">
         <div>
           <h2 className="mb-6 text-5xl font-semibold leading-[0.95] tracking-[-0.04em] md:text-7xl">
             <MaskText lines={["Öğrendiklerimi", <span key="s" className="font-serif font-normal italic text-accent">paylaşıyorum.</span>]} />
           </h2>
           <Reveal className="mb-12 max-w-md text-muted">
-            <p>Yapay zekâ ile ürün geliştirme, işletmeler için yazılım ve tek kişilik ekip olmak üzerine notlar. Ayda bir, kısa ve işe yarar.</p>
+            <p>İşletmeler için yazılım, esnafın dijitalleşmesi ve yapay zekâ ile ürün geliştirme üzerine notlar. Ayda bir, kısa ve işe yarar.</p>
           </Reveal>
           <ul className="border-t border-line">
             {posts.map((p, i) => (

@@ -28,18 +28,18 @@ function ScrollText({ text }: { text: string }) {
   );
 }
 
-function Counter({ value, suffix }: { value: number; suffix: string }) {
+function Counter({ value, suffix, decimals = 0 }: { value: number; suffix: string; decimals?: number }) {
   const ref = useRef<HTMLSpanElement>(null);
   const inView = useInView(ref, { once: true });
   const [n, setN] = useState(0);
   useEffect(() => {
     if (!inView) return;
-    const c = animate(0, value, { duration: 1.6, ease: [0.22, 1, 0.36, 1], onUpdate: (v) => setN(Math.round(v)) });
+    const c = animate(0, value, { duration: 1.6, ease: [0.22, 1, 0.36, 1], onUpdate: (v) => setN(v) });
     return () => c.stop();
   }, [inView, value]);
   return (
     <span ref={ref} className="tabular-nums">
-      {n}
+      {n.toLocaleString("tr-TR", { minimumFractionDigits: decimals, maximumFractionDigits: decimals })}
       {suffix}
     </span>
   );
@@ -77,7 +77,7 @@ export default function About() {
             {about.stats.map((s, i) => (
               <Reveal key={s.label} delay={i * 0.1} className="border-t border-line pt-5">
                 <p className="text-5xl font-semibold tracking-tight md:text-6xl">
-                  <Counter value={s.value} suffix={s.suffix} />
+                  <Counter value={s.value} suffix={s.suffix} decimals={s.decimals} />
                 </p>
                 <p className="mt-2 text-sm text-muted">{s.label}</p>
               </Reveal>

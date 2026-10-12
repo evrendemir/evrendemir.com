@@ -1,48 +1,84 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useState } from "react";
-import { services } from "@/content/site";
+import { offers, steps } from "@/content/site";
 import { MaskText, Reveal } from "./Reveal";
 
 export default function Services() {
-  const [active, setActive] = useState<number | null>(null);
-
   return (
-    <section className="bg-fg text-bg">
+    <section id="hizmetler" className="bg-fg text-bg">
       <div className="mx-auto max-w-7xl px-4 py-28 md:px-10 md:py-40">
         <Reveal y={16} className="mb-10 flex items-center gap-4 font-mono text-xs uppercase tracking-[0.2em] text-bg/50">
-          <span className="text-accent">03</span>
+          <span className="text-accent">04</span>
           <span className="h-px w-10 bg-bg/15" />
           <span>Neler yapıyorum</span>
         </Reveal>
         <h2 className="mb-16 text-5xl font-semibold leading-[0.95] tracking-[-0.04em] md:text-8xl">
-          <MaskText lines={["Fikirden,", <span key="s" className="font-serif font-normal italic">çalışan ürüne.</span>]} />
+          <MaskText lines={["Büyük firmadan", <span key="s" className="font-serif font-normal italic">mahalle esnafına.</span>]} />
         </h2>
 
-        <ul className="border-t border-bg/15" onPointerLeave={() => setActive(null)}>
-          {services.map((s, i) => (
-            <li key={s.title} onPointerEnter={() => setActive(i)} className="relative border-b border-bg/15">
+        <div className="grid gap-6 lg:grid-cols-2">
+          {offers.map((o, i) => (
+            <Reveal key={o.key} delay={i * 0.12}>
               <motion.div
-                className="absolute inset-0 origin-bottom bg-accent"
-                initial={false}
-                animate={{ scaleY: active === i ? 1 : 0 }}
-                transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-              />
-              <Reveal delay={i * 0.06} className="relative grid gap-3 px-2 py-8 md:grid-cols-[80px_1fr_1fr] md:items-center md:py-10">
-                <span className="font-mono text-sm text-bg/50">0{i + 1}</span>
-                <motion.h3
-                  className="text-3xl font-medium tracking-tight md:text-5xl"
-                  animate={{ x: active === i ? 16 : 0 }}
-                  transition={{ duration: 0.4 }}
+                whileHover={{ y: -6 }}
+                transition={{ type: "spring", stiffness: 300, damping: 24 }}
+                className={`group relative flex h-full flex-col overflow-hidden rounded-3xl p-8 md:p-12 ${
+                  i === 0 ? "bg-bg text-fg" : "bg-accent text-bg"
+                }`}
+              >
+                <div
+                  aria-hidden
+                  className="pointer-events-none absolute -bottom-40 -right-40 h-96 w-96 rounded-full opacity-0 blur-3xl transition-opacity duration-700 group-hover:opacity-60"
+                  style={{ background: i === 0 ? "radial-gradient(circle, var(--accent), transparent 70%)" : "radial-gradient(circle, #fff, transparent 70%)" }}
+                />
+                <p className={`relative font-mono text-xs uppercase tracking-[0.18em] ${i === 0 ? "text-accent" : "text-bg/60"}`}>{o.eyebrow}</p>
+                <h3 className="relative mt-4 text-4xl font-semibold tracking-tight md:text-5xl">{o.title}</h3>
+                <p className={`relative mt-5 max-w-md leading-relaxed ${i === 0 ? "text-muted" : "text-bg/75"}`}>{o.body}</p>
+                <ul className="relative mt-10 grid gap-x-6 sm:grid-cols-2">
+                  {o.items.map((it, j) => (
+                    <motion.li
+                      key={it}
+                      initial={{ opacity: 0, x: -12 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: 0.2 + j * 0.06 }}
+                      className={`flex items-center gap-3 border-t py-3 text-sm ${i === 0 ? "border-line" : "border-bg/15"}`}
+                    >
+                      <span>✦</span>
+                      {it}
+                    </motion.li>
+                  ))}
+                </ul>
+                <a
+                  href="#iletisim"
+                  className={`relative mt-10 inline-flex w-fit items-center gap-2 rounded-full px-5 py-3 text-sm font-medium transition-transform hover:scale-105 ${
+                    i === 0 ? "bg-fg text-bg" : "bg-bg text-fg"
+                  }`}
                 >
-                  {s.title}
-                </motion.h3>
-                <p className="max-w-md text-bg/70">{s.body}</p>
-              </Reveal>
-            </li>
+                  {o.cta} →
+                </a>
+              </motion.div>
+            </Reveal>
           ))}
-        </ul>
+        </div>
+
+        <div className="mt-24">
+          <Reveal>
+            <p className="mb-8 font-mono text-xs uppercase tracking-[0.18em] text-bg/50">Nasıl çalışıyoruz</p>
+          </Reveal>
+          <div className="grid gap-px overflow-hidden rounded-3xl border border-bg/10 bg-bg/10 md:grid-cols-4">
+            {steps.map((s, i) => (
+              <Reveal key={s.title} delay={i * 0.08} className="h-full bg-fg">
+                <div className="h-full p-6 md:p-8">
+                  <span className="font-mono text-sm text-accent">0{i + 1}</span>
+                  <h4 className="mt-6 text-2xl font-medium tracking-tight">{s.title}</h4>
+                  <p className="mt-2 text-sm leading-relaxed text-bg/65">{s.body}</p>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+        </div>
       </div>
     </section>
   );

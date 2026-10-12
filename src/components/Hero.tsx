@@ -1,6 +1,7 @@
 "use client";
 
-import { AnimatePresence, motion, useMotionValue, useScroll, useSpring, useTransform } from "framer-motion";
+import { AnimatePresence, motion, useMotionValue, useScroll, useSpring, useTransform, type MotionValue } from "framer-motion";
+import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { profile } from "@/content/site";
 import { MaskText } from "./Reveal";
@@ -28,6 +29,54 @@ function RotatingRole() {
         </motion.span>
       </AnimatePresence>
     </span>
+  );
+}
+
+const floating = [
+  { id: "6741438981", x: "8%", y: "6%", size: 96, depth: 40 },
+  { id: "6754558335", x: "62%", y: "0%", size: 76, depth: 25 },
+  { id: "6477217921", x: "34%", y: "30%", size: 84, depth: 55 },
+  { id: "6751212404", x: "80%", y: "34%", size: 68, depth: 30 },
+  { id: "6740820848", x: "4%", y: "58%", size: 64, depth: 20 },
+  { id: "6754556514", x: "56%", y: "66%", size: 72, depth: 45 },
+];
+
+function FloatIcon({ icon, mx, my, i }: { icon: (typeof floating)[number]; mx: MotionValue<number>; my: MotionValue<number>; i: number }) {
+  const x = useSpring(useTransform(mx, [0, 1], [icon.depth, -icon.depth]), { stiffness: 50, damping: 18 });
+  const y = useSpring(useTransform(my, [0, 1], [icon.depth, -icon.depth]), { stiffness: 50, damping: 18 });
+  return (
+    <motion.div className="absolute" style={{ left: icon.x, top: icon.y, x, y }}>
+      <motion.div
+        initial={{ opacity: 0, scale: 0.4, rotate: -20 }}
+        animate={{ opacity: 1, scale: 1, rotate: 0, y: [0, -12, 0] }}
+        transition={{
+          opacity: { delay: START + 0.6 + i * 0.08, duration: 0.6 },
+          scale: { delay: START + 0.6 + i * 0.08, type: "spring", stiffness: 200, damping: 14 },
+          rotate: { delay: START + 0.6 + i * 0.08, duration: 0.8 },
+          y: { repeat: Infinity, duration: 4 + i * 0.6, ease: "easeInOut" },
+        }}
+      >
+        <Image
+          src={`/apps/${icon.id}-icon.jpg`}
+          alt=""
+          width={icon.size}
+          height={icon.size}
+          className="rounded-[22%] shadow-2xl shadow-black/60 ring-1 ring-white/10"
+          style={{ width: icon.size, height: icon.size }}
+        />
+      </motion.div>
+    </motion.div>
+  );
+}
+
+// Girişte fareyle hafifçe kayan uygulama ikonları (yalnızca geniş ekranlarda).
+function FloatingIcons({ mx, my }: { mx: MotionValue<number>; my: MotionValue<number> }) {
+  return (
+    <div aria-hidden className="pointer-events-none absolute right-[4%] top-[14%] hidden h-[46%] w-[34%] lg:block">
+      {floating.map((icon, i) => (
+        <FloatIcon key={icon.id} icon={icon} mx={mx} my={my} i={i} />
+      ))}
+    </div>
   );
 }
 
@@ -77,6 +126,8 @@ export default function Hero() {
           backgroundSize: "80px 80px",
         }}
       />
+
+      <FloatingIcons mx={mx} my={my} />
 
       <motion.div style={{ y, opacity, scale }} className="relative mx-auto w-full max-w-7xl">
         <motion.div
