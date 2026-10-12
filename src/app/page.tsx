@@ -1,29 +1,29 @@
-'use client';
-
-import Navbar from '@/components/Navbar';
-import HeroSection from '@/components/HeroSection';
-import IncomeProofSection from '@/components/IncomeProofSection';
-import CompareSection from '@/components/CompareSection';
-import CourseSection from '@/components/CourseSection';
-import TestimonialsSection from '@/components/TestimonialsSection';
-import PricingSection from '@/components/PricingSection';
-import FAQSection from '@/components/FAQSection';
-import Footer from '@/components/Footer';
-import StickyBanner from '@/components/StickyBanner';
+import About from "@/components/About";
+import Contact from "@/components/Contact";
+import Cursor from "@/components/Cursor";
+import Hero from "@/components/Hero";
+import Navbar from "@/components/Navbar";
+import Preloader from "@/components/Preloader";
+import Services from "@/components/Services";
+import SmoothScroll from "@/components/SmoothScroll";
+import Work from "@/components/Work";
+import Writing from "@/components/Writing";
 
 export default function Home() {
   return (
-    <main className="relative overflow-hidden">
+    <>
+      <SmoothScroll />
+      <Preloader />
+      <Cursor />
       <Navbar />
-      <HeroSection />
-      <IncomeProofSection />
-      <CompareSection />
-      <CourseSection />
-      <TestimonialsSection />
-      <PricingSection />
-      <FAQSection />
-      <Footer />
-      <StickyBanner />
-    </main>
+      <main>
+        <Hero />
+        <About />
+        <Work />
+        <Services />
+        <Writing />
+      </main>
+      <Contact />
+    </>
   );
 }

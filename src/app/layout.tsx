@@ -1,54 +1,44 @@
 import type { Metadata } from "next";
-import { Space_Grotesk, JetBrains_Mono } from "next/font/google";
+import { Inter_Tight, Instrument_Serif, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
-import { LanguageProvider } from "@/context/LanguageContext";
 
-const spaceGrotesk = Space_Grotesk({
-  variable: "--font-space-grotesk",
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
+const interTight = Inter_Tight({
+  variable: "--font-inter-tight",
+  subsets: ["latin", "latin-ext"],
+});
+
+const instrumentSerif = Instrument_Serif({
+  variable: "--font-instrument-serif",
+  subsets: ["latin", "latin-ext"],
+  weight: "400",
+  style: ["normal", "italic"],
 });
 
 const jetbrainsMono = JetBrains_Mono({
   variable: "--font-jetbrains-mono",
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+  subsets: ["latin", "latin-ext"],
+  weight: ["400", "500"],
 });
 
+const title = "Evren Demir | Yazılım, otomasyon ve iOS";
+const description =
+  "İşletmeler için web siteleri, yönetim panelleri ve otomasyonlar geliştiriyorum. Şimdi de yapay zekâ ile iOS uygulamaları yapıyorum.";
+
 export const metadata: Metadata = {
-  title: "evrendemir.com | Kod Yazmadan iOS Uygulaması Geliştir",
-  description: "Cursor AI ile sıfırdan App Store'a. Kod bilmeden ayda $100,000 kazanan uygulamalar yap. 2025'in en iyi fırsatı!",
-  keywords: ["iOS uygulama geliştirme", "Cursor AI", "kod yazmadan uygulama", "mobil uygulama kursu", "App Store", "pasif gelir"],
+  metadataBase: new URL("https://evrendemir.com"),
+  title,
+  description,
   authors: [{ name: "Evren Demir" }],
-  openGraph: {
-    title: "evrendemir.com | Kod Yazmadan iOS Uygulaması Geliştir",
-    description: "Cursor AI ile sıfırdan App Store'a. Kod bilmeden ayda $100,000 kazanan uygulamalar yap.",
-    type: "website",
-    locale: "tr_TR",
-    alternateLocale: "en_US",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "evrendemir.com | Kod Yazmadan iOS Uygulaması Geliştir",
-    description: "Cursor AI ile sıfırdan App Store'a. 2025'in en iyi fırsatı!",
-  },
+  openGraph: { title, description, type: "website", locale: "tr_TR", url: "https://evrendemir.com" },
+  twitter: { card: "summary_large_image", title, description },
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="tr" className="scroll-smooth">
-      <body
-        className={`${spaceGrotesk.variable} ${jetbrainsMono.variable} antialiased bg-[#0a0a0a] text-white`}
-      >
-        <LanguageProvider>
-          {/* Noise Overlay */}
-          <div className="noise-overlay" />
-          {children}
-        </LanguageProvider>
+    <html lang="tr">
+      <body className={`${interTight.variable} ${instrumentSerif.variable} ${jetbrainsMono.variable}`}>
+        <div className="grain" aria-hidden />
+        {children}
       </body>
     </html>
   );
