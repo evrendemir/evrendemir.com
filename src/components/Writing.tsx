@@ -7,7 +7,7 @@ import SubscribeForm from "./SubscribeForm";
 export default function Writing() {
   return (
     <section id="yazilar" className="mx-auto max-w-7xl px-4 py-28 md:px-10 md:py-40">
-      <SectionLabel index="05">Yazılar ve bülten</SectionLabel>
+      <SectionLabel index="06">Yazılar ve bülten</SectionLabel>
       <div className="grid gap-16 lg:grid-cols-[1.1fr_1fr]">
         <div>
           <h2 className="mb-6 text-5xl font-semibold leading-[0.95] tracking-[-0.04em] md:text-7xl">

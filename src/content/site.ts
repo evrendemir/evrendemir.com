@@ -8,7 +8,7 @@ export const profile = {
   email: "evren@evrendemir.com",
   available: true,
   intro:
-    "Firmalara özel ERP ve yönetim yazılımları geliştiriyorum; küçük işletmeler ve esnaf için de stok, ön muhasebe, randevu ve servis takibini kolaylaştıran uygulamalarla çözüm ortaklığı yapıyorum.",
+    "Firmalara özel ERP ve yönetim yazılımları, esnafa randevu ve stok uygulamaları, bireylere fikirlerini hayata geçiren uygulamalar geliştiriyorum. Kendi uygulamasını yapmak isteyenlere de danışmanlık veriyorum.",
   roles: ["ERP yazılımları", "randevu uygulamaları", "mobil uygulamalar", "web siteleri", "otomasyonlar"],
 };
 
@@ -175,6 +175,38 @@ export const offers = [
       "Kurulum, eğitim ve sürekli destek",
     ],
     cta: "İşletmem için bilgi al",
+  },
+  {
+    key: "bireysel",
+    eyebrow: "Bireyler ve girişimciler için",
+    title: "Fikrinizi uygulamaya dönüştüreyim",
+    body:
+      "Aklınızda bir uygulama fikri mi var? Tasarımdan App Store ve Google Play yayınına kadar baştan sona ben yapayım; siz sadece fikrinizi anlatın.",
+    items: [
+      "iOS ve Android uygulama",
+      "Girişim MVP'si",
+      "Web uygulaması ve e-ticaret",
+      "Yapay zekâ destekli özellikler",
+      "Abonelik ve uygulama içi satın alma",
+      "App Store yayını ve büyüme",
+    ],
+    cta: "Fikrimi anlatayım",
+  },
+  {
+    key: "danismanlik",
+    eyebrow: "Danışmanlık",
+    title: "Kendi uygulamanızı yapın, ben yanınızdayım",
+    body:
+      "Uygulamasını kendisi geliştirmek isteyenlere ya da ekibine yön vermek isteyenlere birebir danışmanlık. 10 uygulama yayınlarken öğrendiklerimi size aktarıyorum.",
+    items: [
+      "Fikir doğrulama ve kapsam",
+      "Teknik yol haritası",
+      "Cursor ve Claude ile birebir mentorluk",
+      "Kod ve mimari incelemesi",
+      "App Store yayın desteği",
+      "Gelir modeli ve ASO",
+    ],
+    cta: "Danışmanlık al",
   },
 ];
 
@@ -357,3 +389,82 @@ export const solutions: Solution[] = [
     color: "#e11d48",
   },
 ];
+
+// Bireyler ve girişimciler için örnek projeler. Görseller Unsplash (ücretsiz lisans), /public/projects.
+export type PersonalProject = {
+  slug: string;
+  title: string;
+  type: string;
+  summary: string;
+  tags: string[];
+};
+
+export const personalProjects: PersonalProject[] = [
+  {
+    slug: "pazar",
+    title: "İkinci el moda pazar yeri",
+    type: "Girişim MVP'si",
+    summary: "Kullanıcıların dolabındaki kıyafetleri fotoğraflayıp sattığı, güvenli ödemeli pazar yeri.",
+    tags: ["iOS + Android", "Ödeme", "Mesajlaşma"],
+  },
+  {
+    slug: "diyet",
+    title: "Yapay zekâ diyet asistanı",
+    type: "Sağlık uygulaması",
+    summary: "Yemeğin fotoğrafını çek, kalorisini ve besin değerlerini yapay zekâ hesaplasın, günlük hedefine göre öneri versin.",
+    tags: ["Yapay zekâ", "Abonelik", "HealthKit"],
+  },
+  {
+    slug: "finans",
+    title: "Kişisel bütçe takibi",
+    type: "Finans uygulaması",
+    summary: "Harcamaları kategorilere ayıran, ay sonu tasarruf hedefini gösteren sade bir bütçe uygulaması.",
+    tags: ["iOS", "Grafikler", "Widget"],
+  },
+  {
+    slug: "eticaret",
+    title: "El yapımı ürünler mağazası",
+    type: "E-ticaret",
+    summary: "Atölyesinden satış yapan bir tasarımcı için sipariş, kargo ve stok takibi olan online mağaza.",
+    tags: ["Web", "Online ödeme", "Kargo entegrasyonu"],
+  },
+  {
+    slug: "dugun",
+    title: "Düğün ve etkinlik uygulaması",
+    type: "Etkinlik",
+    summary: "Dijital davetiye, LCV takibi, masa planı ve misafirlerin fotoğraf paylaştığı ortak albüm.",
+    tags: ["Web + iOS", "QR kod", "Ortak albüm"],
+  },
+  {
+    slug: "kulup",
+    title: "Koşu kulübü topluluğu",
+    type: "Topluluk uygulaması",
+    summary: "Kulüp üyelerinin antrenmanlara katıldığı, rotaları ve sıralamayı paylaştığı topluluk uygulaması.",
+    tags: ["Harita", "Bildirimler", "Sıralama"],
+  },
+  {
+    slug: "aliskanlik",
+    title: "Alışkanlık ve günlük",
+    type: "Kişisel gelişim",
+    summary: "Günlük hedefler, seri takibi ve kısa günlük notlarıyla alışkanlık kazandıran uygulama.",
+    tags: ["iOS", "Widget", "iCloud senkron"],
+  },
+  {
+    slug: "seyahat",
+    title: "Seyahat planlayıcı",
+    type: "Seyahat",
+    summary: "Uçuş, otel ve gezilecek yerleri tek bir rotada toplayan, arkadaşlarla birlikte planlanan seyahat uygulaması.",
+    tags: ["Harita", "Ortak plan", "Çevrimdışı"],
+  },
+];
+
+export const consulting = {
+  title: "Uygulamanızı kendiniz yapmak mı istiyorsunuz?",
+  body:
+    "Birebir görüşmelerle fikrinizi netleştiriyor, doğru araçları seçiyor ve yayına kadar adım adım ilerliyoruz. Cursor ve Claude gibi yapay zekâ araçlarıyla nasıl hızlı üretileceğini uygulamalı gösteriyorum.",
+  packages: [
+    { name: "Tek görüşme", detail: "60 dakikalık birebir görüşme: fikir, kapsam ve yol haritası." },
+    { name: "Mentorluk", detail: "Haftalık görüşmelerle uygulamanızı birlikte yayına taşıyoruz." },
+    { name: "Ekip danışmanlığı", detail: "Yazılım ekibinize mimari, süreç ve yapay zekâ araçları desteği." },
+  ],
+};

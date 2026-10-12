@@ -38,11 +38,11 @@ function Steps() {
 export default function Services() {
   return (
     <section id="hizmetler" className="relative overflow-hidden border-y border-line bg-bg-soft/40">
-      <div aria-hidden className="pointer-events-none absolute left-1/2 top-0 h-[40rem] w-[60rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(255,138,76,0.12),transparent_65%)] blur-2xl" />
+      <div aria-hidden className="pointer-events-none absolute left-1/2 top-0 h-[40rem] w-[60rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(255,138,76,0.12),transparent_65%)]" />
       <div className="relative mx-auto max-w-7xl px-4 py-28 md:px-10 md:py-40">
-        <SectionLabel index="04">Neler yapıyorum</SectionLabel>
+        <SectionLabel index="05">Neler yapıyorum</SectionLabel>
         <h2 className="mb-16 text-5xl font-semibold leading-[0.95] tracking-[-0.045em] md:text-8xl">
-          <MaskText lines={[<span key="a" className="text-metal">Büyük firmadan</span>, <span key="s" className="text-gradient font-serif font-normal italic">mahalle esnafına.</span>]} />
+          <MaskText lines={[<span key="a" className="text-metal">Firmadan esnafa,</span>, <span key="s" className="text-gradient font-serif font-normal italic">fikri olan herkese.</span>]} />
         </h2>
 
         <div className="grid gap-5 lg:grid-cols-2">
@@ -52,13 +52,13 @@ export default function Services() {
                 whileHover={{ y: -6 }}
                 transition={{ type: "spring", stiffness: 300, damping: 24 }}
                 className={`gradient-border group relative flex h-full flex-col overflow-hidden rounded-[2rem] p-8 md:p-12 ${
-                  i === 0 ? "bg-bg" : "bg-gradient-to-br from-[#2a1609] via-bg to-bg"
+                  i % 3 === 0 ? "bg-bg" : i % 3 === 1 ? "bg-gradient-to-br from-[#2a1609] via-bg to-bg" : "bg-gradient-to-br from-[#14122b] via-bg to-bg"
                 }`}
               >
                 <div
                   aria-hidden
-                  className="pointer-events-none absolute -bottom-40 -right-40 h-[28rem] w-[28rem] rounded-full opacity-30 blur-3xl transition-opacity duration-700 group-hover:opacity-70"
-                  style={{ background: i === 0 ? "radial-gradient(circle, rgba(130,110,255,0.6), transparent 70%)" : "radial-gradient(circle, var(--accent), transparent 70%)" }}
+                  className="pointer-events-none absolute -bottom-40 -right-40 h-[28rem] w-[28rem] rounded-full opacity-30 transition-opacity duration-700 group-hover:opacity-70"
+                  style={{ background: i % 2 === 0 ? "radial-gradient(circle, rgba(130,110,255,0.6), transparent 70%)" : "radial-gradient(circle, var(--accent), transparent 70%)" }}
                 />
                 <p className="relative font-mono text-xs uppercase tracking-[0.18em] text-accent">{o.eyebrow}</p>
                 <h3 className="relative mt-4 text-4xl font-semibold tracking-tight md:text-5xl">{o.title}</h3>
@@ -81,7 +81,7 @@ export default function Services() {
                 <a
                   href="#iletisim"
                   className={`shine relative mt-auto inline-flex w-fit items-center gap-2 overflow-hidden rounded-full px-6 py-3.5 text-sm font-medium ${
-                    i === 0 ? "glass text-fg" : "bg-fg text-bg"
+                    i % 2 === 0 ? "glass text-fg" : "bg-fg text-bg"
                   }`}
                   style={{ marginTop: "2.5rem" }}
                 >

@@ -1,12 +1,14 @@
 "use client";
 
 import { motion, useMotionValue, useSpring } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 // Masaüstünde fareyi takip eden halka; bağlantıların üstünde büyür.
 export default function Cursor() {
   const [enabled, setEnabled] = useState(false);
   const [hovering, setHovering] = useState(false);
+  const hoverRef = useRef(false);
+  const enabledRef = useRef(false);
   const x = useMotionValue(-100);
   const y = useMotionValue(-100);
   const sx = useSpring(x, { stiffness: 500, damping: 40, mass: 0.4 });
@@ -15,10 +17,17 @@ export default function Cursor() {
   useEffect(() => {
     if (!window.matchMedia("(pointer: fine)").matches) return;
     const move = (e: PointerEvent) => {
-      setEnabled(true);
+      if (!enabledRef.current) {
+        enabledRef.current = true;
+        setEnabled(true);
+      }
       x.set(e.clientX);
       y.set(e.clientY);
-      setHovering(!!(e.target as HTMLElement).closest("a, button, input, [data-cursor]"));
+      const h = !!(e.target as HTMLElement).closest("a, button, input, [data-cursor]");
+      if (h !== hoverRef.current) {
+        hoverRef.current = h;
+        setHovering(h);
+      }
     };
     window.addEventListener("pointermove", move);
     return () => window.removeEventListener("pointermove", move);

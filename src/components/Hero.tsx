@@ -6,7 +6,7 @@ import { useEffect, useRef, useState } from "react";
 import { apps, profile, solutions } from "@/content/site";
 import { MaskText } from "./Reveal";
 
-const START = 1.7; // açılış ekranı kalktıktan sonra
+const START = 1.0; // açılış ekranı kalktıktan sonra
 const ease = [0.22, 1, 0.36, 1] as const;
 
 function RotatingRole() {
@@ -48,7 +48,7 @@ function Portrait({ mx, my }: { mx: MotionValue<number>; my: MotionValue<number>
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 1.4, ease, delay: START + 0.15 }}
     >
-      <div aria-hidden className="absolute -inset-10 rounded-full bg-[radial-gradient(circle,rgba(255,138,76,0.35),transparent_65%)] blur-2xl" />
+      <div aria-hidden className="absolute -inset-16 rounded-full bg-[radial-gradient(circle,rgba(255,138,76,0.3),transparent_65%)]" />
       <motion.div style={{ rotateX, rotateY }} className="gradient-border relative aspect-[3/4] overflow-hidden rounded-[2.5rem] shadow-[0_40px_120px_-20px_rgba(0,0,0,0.9)]">
         <Image src="/me/portre-kollar.jpg" alt="Evren Demir" fill priority sizes="440px" className="object-cover" />
         <div className="absolute inset-0 bg-gradient-to-t from-bg/70 via-transparent to-transparent" />
@@ -124,7 +124,7 @@ export default function Hero() {
         <div className="aurora aurora-1" />
         <div className="aurora aurora-2" />
         <motion.div
-          className="absolute h-[50vmax] w-[50vmax] -translate-x-1/2 -translate-y-1/2 rounded-full blur-3xl"
+          className="absolute h-[50vmax] w-[50vmax] -translate-x-1/2 -translate-y-1/2 rounded-full will-change-transform"
           style={{ left: gx, top: gy, background: "radial-gradient(circle, rgba(255,210,154,0.16), transparent 60%)" }}
         />
         <div className="absolute inset-0 bg-[radial-gradient(rgba(244,242,238,0.09)_1px,transparent_1px)] [background-size:28px_28px] [mask-image:radial-gradient(ellipse_at_center,black_20%,transparent_70%)]" />

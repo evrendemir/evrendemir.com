@@ -11,7 +11,7 @@ export default function Preloader() {
 
   useEffect(() => {
     const start = performance.now();
-    const duration = 1300;
+    const duration = 700;
     let frame = requestAnimationFrame(function tick(now) {
       const p = Math.min((now - start) / duration, 1);
       setCount(Math.round((1 - Math.pow(1 - p, 3)) * 100));
@@ -31,7 +31,7 @@ export default function Preloader() {
         <motion.div
           className="fixed inset-0 z-[100] flex items-end justify-between bg-bg-soft p-6 md:p-10"
           exit={{ y: "-100%" }}
-          transition={{ duration: 0.9, ease }}
+          transition={{ duration: 0.7, ease }}
         >
           <div className="overflow-hidden">
             <motion.p

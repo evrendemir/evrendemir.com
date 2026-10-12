@@ -5,9 +5,9 @@ import { useState } from "react";
 
 const links = [
   { href: "#cozumler", label: "Çözümler" },
+  { href: "#bireysel", label: "Bireysel" },
   { href: "#uygulamalar", label: "Uygulamalar" },
   { href: "#hizmetler", label: "Hizmetler" },
-  { href: "#yazilar", label: "Yazılar" },
   { href: "#iletisim", label: "İletişim" },
 ];
 
