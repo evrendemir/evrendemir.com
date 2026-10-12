@@ -5,7 +5,7 @@ export const profile = {
   firstName: "Evren",
   lastName: "Demir",
   location: "İzmir, Türkiye",
-  email: "evren@evrendemir.com",
+  email: "evren.demir.ed@gmail.com",
   available: true,
   intro:
     "Firmalara özel ERP ve yönetim yazılımları, esnafa randevu ve stok uygulamaları, bireylere fikirlerini hayata geçiren uygulamalar geliştiriyorum. Kendi uygulamasını yapmak isteyenlere de danışmanlık veriyorum.",
