@@ -22,7 +22,7 @@ function Magnetic({ children, href }: { children: React.ReactNode; href: string 
         x.set(0);
         y.set(0);
       }}
-      className="flex h-40 w-40 items-center justify-center rounded-full bg-accent text-center text-lg font-medium text-bg md:h-52 md:w-52 md:text-xl"
+      className="relative flex h-40 w-40 items-center justify-center shine overflow-hidden rounded-full bg-gradient-to-br from-accent to-accent-2 text-center text-lg font-medium text-bg shadow-[0_20px_80px_-10px_rgba(255,138,76,0.6)] md:h-52 md:w-52 md:text-xl"
     >
       {children}
     </motion.a>
@@ -51,7 +51,7 @@ export default function Contact() {
       <div className="mx-auto max-w-7xl px-4 md:px-10">
         <div className="flex flex-col gap-12 md:flex-row md:items-end md:justify-between">
           <h2 className="text-6xl font-semibold leading-[0.9] tracking-[-0.05em] md:text-[9rem]">
-            <MaskText lines={["Birlikte", <span key="s" className="font-serif font-normal italic text-accent">bir şey</span>, "yapalım."]} />
+            <MaskText lines={["Birlikte", <span key="s" className="text-gradient font-serif font-normal italic">bir şey</span>, "yapalım."]} />
           </h2>
           <Reveal delay={0.2}>
             <Magnetic href={`mailto:${profile.email}`}>Bana yaz ↗</Magnetic>

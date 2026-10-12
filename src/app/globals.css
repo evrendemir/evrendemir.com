@@ -1,13 +1,13 @@
 @import "tailwindcss";
 
 :root {
-  --bg: #0b0b0c;
-  --bg-soft: #131315;
+  --bg: #08080a;
+  --bg-soft: #111114;
   --fg: #f4f2ee;
-  --muted: #8d8a85;
-  --line: rgba(244, 242, 238, 0.1);
-  --accent: #ff6a3d;
-  --accent-2: #ffb547;
+  --muted: #8f8c88;
+  --line: rgba(244, 242, 238, 0.09);
+  --accent: #ff8a4c;
+  --accent-2: #ffd29a;
 }
 
 @theme inline {
@@ -81,6 +81,88 @@ html.lenis body {
   to { transform: translateX(-50%); }
 }
 
+/* Cam yüzey */
+.glass {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.025));
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(20px);
+}
+
+/* Üstten parlayan ince degrade kenar */
+.gradient-border {
+  position: relative;
+}
+.gradient-border::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.28), rgba(255, 255, 255, 0.04) 40%, rgba(255, 138, 76, 0.25));
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* Butonun üstünden geçen ışık */
+.shine::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(110deg, transparent 30%, rgba(255, 255, 255, 0.55) 50%, transparent 70%);
+  transform: translateX(-120%);
+  transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.shine:hover::after {
+  transform: translateX(120%);
+}
+
+.text-metal {
+  background: linear-gradient(180deg, #ffffff 10%, #b9b5ae 95%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.text-gradient {
+  background: linear-gradient(100deg, var(--accent) 10%, var(--accent-2) 90%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  padding-right: 0.08em;
+}
+
+.aurora {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(90px);
+  opacity: 0.55;
+}
+.aurora-1 {
+  width: 55vmax;
+  height: 40vmax;
+  left: -10%;
+  top: -20%;
+  background: radial-gradient(circle, rgba(255, 120, 60, 0.45), transparent 65%);
+  animation: drift-1 22s ease-in-out infinite alternate;
+}
+.aurora-2 {
+  width: 50vmax;
+  height: 45vmax;
+  right: -15%;
+  bottom: -25%;
+  background: radial-gradient(circle, rgba(120, 90, 255, 0.28), transparent 65%);
+  animation: drift-2 26s ease-in-out infinite alternate;
+}
+@keyframes drift-1 {
+  to { transform: translate(18%, 22%) scale(1.15); }
+}
+@keyframes drift-2 {
+  to { transform: translate(-20%, -15%) scale(1.1); }
+}
+
 .text-outline {
   -webkit-text-stroke: 1px rgba(244, 242, 238, 0.35);
   color: transparent;
@@ -88,6 +170,7 @@ html.lenis body {
 
 @media (prefers-reduced-motion: reduce) {
   .grain,
+  .aurora,
   .marquee-track {
     animation: none;
   }

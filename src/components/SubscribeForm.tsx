@@ -31,7 +31,7 @@ export default function SubscribeForm({ cta = "Kaydol", dark = false }: { cta?: 
             key="form"
             onSubmit={submit}
             exit={{ opacity: 0, y: -10 }}
-            className={`flex items-center gap-2 rounded-full border p-1.5 pl-5 transition-colors focus-within:border-accent ${
+            className={`flex items-center gap-2 glass rounded-full p-1.5 pl-5 transition-colors focus-within:border-accent ${
               dark ? "border-bg/20" : "border-line"
             }`}
           >
@@ -46,7 +46,7 @@ export default function SubscribeForm({ cta = "Kaydol", dark = false }: { cta?: 
             />
             <button
               type="submit"
-              className="shrink-0 rounded-full bg-accent px-5 py-2.5 text-sm font-medium text-bg transition-transform hover:scale-105"
+              className="shrink-0 rounded-full bg-gradient-to-r from-accent to-accent-2 px-5 py-2.5 text-sm font-medium text-bg transition-transform hover:scale-105"
             >
               {cta}
             </button>

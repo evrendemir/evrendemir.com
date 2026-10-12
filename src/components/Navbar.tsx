@@ -33,7 +33,7 @@ export default function Navbar() {
       >
         <nav
           className={`flex w-full max-w-6xl items-center justify-between rounded-full border px-5 py-3 transition-colors duration-500 ${
-            scrolled ? "border-line bg-bg/70 backdrop-blur-xl" : "border-transparent"
+            scrolled ? "glass border-white/10 shadow-2xl shadow-black/40" : "border-transparent"
           }`}
         >
           <a href="#top" className="text-sm font-semibold tracking-tight">

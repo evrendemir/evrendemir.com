@@ -3,27 +3,28 @@
 import { AnimatePresence, motion, useMotionValue, useScroll, useSpring, useTransform, type MotionValue } from "framer-motion";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
-import { profile } from "@/content/site";
+import { apps, profile } from "@/content/site";
 import { MaskText } from "./Reveal";
 
 const START = 1.7; // açılış ekranı kalktıktan sonra
+const ease = [0.22, 1, 0.36, 1] as const;
 
 function RotatingRole() {
   const [i, setI] = useState(0);
   useEffect(() => {
-    const t = setInterval(() => setI((n) => (n + 1) % profile.roles.length), 2400);
+    const t = setInterval(() => setI((n) => (n + 1) % profile.roles.length), 2600);
     return () => clearInterval(t);
   }, []);
   return (
-    <span className="relative inline-flex h-[1.2em] overflow-hidden align-bottom">
+    <span className="relative inline-flex h-[1.15em] overflow-hidden align-bottom">
       <AnimatePresence mode="popLayout" initial={false}>
         <motion.span
           key={profile.roles[i]}
-          className="font-serif italic text-accent"
-          initial={{ y: "100%", opacity: 0 }}
-          animate={{ y: "0%", opacity: 1 }}
-          exit={{ y: "-100%", opacity: 0 }}
-          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+          className="text-gradient font-serif italic"
+          initial={{ y: "100%", opacity: 0, filter: "blur(6px)" }}
+          animate={{ y: "0%", opacity: 1, filter: "blur(0px)" }}
+          exit={{ y: "-100%", opacity: 0, filter: "blur(6px)" }}
+          transition={{ duration: 0.7, ease }}
         >
           {profile.roles[i]}
         </motion.span>
@@ -32,65 +33,68 @@ function RotatingRole() {
   );
 }
 
-const floating = [
-  { id: "6741438981", x: "8%", y: "6%", size: 96, depth: 40 },
-  { id: "6754558335", x: "62%", y: "0%", size: 76, depth: 25 },
-  { id: "6477217921", x: "34%", y: "30%", size: 84, depth: 55 },
-  { id: "6751212404", x: "80%", y: "34%", size: 68, depth: 30 },
-  { id: "6740820848", x: "4%", y: "58%", size: 64, depth: 20 },
-  { id: "6754556514", x: "56%", y: "66%", size: 72, depth: 45 },
-];
+// Uygulamalarımın ikonlarıyla dolu, fareyle eğilen cam telefon ekranı.
+function HomeScreen({ mx, my }: { mx: MotionValue<number>; my: MotionValue<number> }) {
+  const rotateY = useSpring(useTransform(mx, [0, 1], [14, -14]), { stiffness: 60, damping: 18 });
+  const rotateX = useSpring(useTransform(my, [0, 1], [-10, 10]), { stiffness: 60, damping: 18 });
+  const time = new Intl.DateTimeFormat("tr-TR", { hour: "2-digit", minute: "2-digit", timeZone: "Europe/Istanbul" }).format(new Date());
 
-function FloatIcon({ icon, mx, my, i }: { icon: (typeof floating)[number]; mx: MotionValue<number>; my: MotionValue<number>; i: number }) {
-  const x = useSpring(useTransform(mx, [0, 1], [icon.depth, -icon.depth]), { stiffness: 50, damping: 18 });
-  const y = useSpring(useTransform(my, [0, 1], [icon.depth, -icon.depth]), { stiffness: 50, damping: 18 });
   return (
-    <motion.div className="absolute" style={{ left: icon.x, top: icon.y, x, y }}>
-      <motion.div
-        initial={{ opacity: 0, scale: 0.4, rotate: -20 }}
-        animate={{ opacity: 1, scale: 1, rotate: 0, y: [0, -12, 0] }}
-        transition={{
-          opacity: { delay: START + 0.6 + i * 0.08, duration: 0.6 },
-          scale: { delay: START + 0.6 + i * 0.08, type: "spring", stiffness: 200, damping: 14 },
-          rotate: { delay: START + 0.6 + i * 0.08, duration: 0.8 },
-          y: { repeat: Infinity, duration: 4 + i * 0.6, ease: "easeInOut" },
-        }}
-      >
-        <Image
-          src={`/apps/${icon.id}-icon.jpg`}
-          alt=""
-          width={icon.size}
-          height={icon.size}
-          className="rounded-[22%] shadow-2xl shadow-black/60 ring-1 ring-white/10"
-          style={{ width: icon.size, height: icon.size }}
-        />
+    <motion.div
+      className="relative mx-auto w-[300px] [perspective:1400px] xl:w-[330px]"
+      initial={{ opacity: 0, y: 60, rotateX: 25 }}
+      animate={{ opacity: 1, y: 0, rotateX: 0 }}
+      transition={{ duration: 1.4, ease, delay: START + 0.2 }}
+    >
+      <motion.div style={{ rotateX, rotateY, transformStyle: "preserve-3d" }} className="relative">
+        <div aria-hidden className="absolute -inset-16 rounded-full bg-[radial-gradient(circle,rgba(255,138,76,0.35),transparent_65%)] blur-2xl" />
+        <motion.div
+          animate={{ y: [0, -10, 0] }}
+          transition={{ repeat: Infinity, duration: 6, ease: "easeInOut" }}
+          className="gradient-border relative aspect-[9/19] overflow-hidden rounded-[3rem] bg-gradient-to-b from-white/[0.09] to-white/[0.02] p-5 shadow-[0_40px_120px_-20px_rgba(0,0,0,0.9)] backdrop-blur-2xl"
+        >
+          <div className="mx-auto mb-6 h-6 w-24 rounded-full bg-black/70" />
+          <div className="mb-8 flex items-center justify-between px-2 text-xs font-medium text-fg/80">
+            <span className="tabular-nums" suppressHydrationWarning>{time}</span>
+            <span className="font-mono text-[10px] tracking-wider text-muted">EVREN</span>
+          </div>
+          <div className="grid grid-cols-3 gap-x-3 gap-y-5">
+            {apps.slice(0, 9).map((a, i) => (
+              <motion.div
+                key={a.id}
+                className="flex flex-col items-center gap-1.5"
+                initial={{ opacity: 0, scale: 0.5 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: START + 0.7 + i * 0.06, type: "spring", stiffness: 260, damping: 18 }}
+              >
+                <Image src={`/apps/${a.id}.png`} alt="" width={128} height={128} className="h-[60px] w-[60px] rounded-[22%] shadow-lg shadow-black/40" />
+                <span className="w-full truncate text-center text-[10px] text-fg/70">{a.name}</span>
+              </motion.div>
+            ))}
+          </div>
+          <div className="absolute inset-x-5 bottom-5 flex justify-around rounded-[1.6rem] bg-white/[0.07] p-3 backdrop-blur-xl">
+            {apps.slice(-1).concat(apps.slice(0, 3)).map((a) => (
+              <Image key={a.id} src={`/apps/${a.id}.png`} alt="" width={128} height={128} className="h-12 w-12 rounded-[22%]" />
+            ))}
+          </div>
+          {/* cam parlaması */}
+          <div aria-hidden className="pointer-events-none absolute inset-0 rounded-[3rem] bg-[linear-gradient(115deg,transparent_35%,rgba(255,255,255,0.08)_45%,transparent_55%)]" />
+        </motion.div>
       </motion.div>
     </motion.div>
-  );
-}
-
-// Girişte fareyle hafifçe kayan uygulama ikonları (yalnızca geniş ekranlarda).
-function FloatingIcons({ mx, my }: { mx: MotionValue<number>; my: MotionValue<number> }) {
-  return (
-    <div aria-hidden className="pointer-events-none absolute right-[4%] top-[14%] hidden h-[46%] w-[34%] lg:block">
-      {floating.map((icon, i) => (
-        <FloatIcon key={icon.id} icon={icon} mx={mx} my={my} i={i} />
-      ))}
-    </div>
   );
 }
 
 export default function Hero() {
   const ref = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
-  const y = useTransform(scrollYProgress, [0, 1], ["0%", "35%"]);
-  const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
-  const scale = useTransform(scrollYProgress, [0, 1], [1, 0.92]);
+  const y = useTransform(scrollYProgress, [0, 1], ["0%", "25%"]);
+  const opacity = useTransform(scrollYProgress, [0, 0.75], [1, 0]);
 
   const mx = useMotionValue(0.5);
   const my = useMotionValue(0.4);
-  const gx = useSpring(useTransform(mx, (v) => `${v * 100}%`), { stiffness: 60, damping: 20 });
-  const gy = useSpring(useTransform(my, (v) => `${v * 100}%`), { stiffness: 60, damping: 20 });
+  const gx = useSpring(useTransform(mx, (v) => `${v * 100}%`), { stiffness: 50, damping: 20 });
+  const gy = useSpring(useTransform(my, (v) => `${v * 100}%`), { stiffness: 50, damping: 20 });
 
   return (
     <section
@@ -101,91 +105,106 @@ export default function Hero() {
         mx.set((e.clientX - r.left) / r.width);
         my.set((e.clientY - r.top) / r.height);
       }}
-      className="relative flex min-h-[100svh] flex-col justify-end overflow-hidden px-4 pb-10 pt-32 md:px-10 md:pb-14"
+      className="relative flex min-h-[100svh] items-center overflow-hidden px-4 pb-16 pt-32 md:px-10"
     >
-      {/* Fareyi takip eden ışık */}
-      <motion.div
-        aria-hidden
-        className="pointer-events-none absolute h-[70vmax] w-[70vmax] -translate-x-1/2 -translate-y-1/2 rounded-full opacity-40 blur-3xl"
-        style={{
-          left: gx,
-          top: gy,
-          background: "radial-gradient(circle, rgba(255,106,61,0.55) 0%, rgba(255,181,71,0.15) 35%, transparent 65%)",
-        }}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 0.4 }}
-        transition={{ duration: 2, delay: START }}
-      />
-      {/* İnce ızgara */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 opacity-[0.07] [mask-image:radial-gradient(ellipse_at_center,black_30%,transparent_75%)]"
-        style={{
-          backgroundImage:
-            "linear-gradient(var(--fg) 1px, transparent 1px), linear-gradient(90deg, var(--fg) 1px, transparent 1px)",
-          backgroundSize: "80px 80px",
-        }}
-      />
-
-      <FloatingIcons mx={mx} my={my} />
-
-      <motion.div style={{ y, opacity, scale }} className="relative mx-auto w-full max-w-7xl">
+      {/* Arka plan: yavaşça dolaşan ışıklar, fare ışığı ve nokta deseni */}
+      <div aria-hidden className="pointer-events-none absolute inset-0">
+        <div className="aurora aurora-1" />
+        <div className="aurora aurora-2" />
         <motion.div
-          className="mb-8 flex flex-wrap items-center gap-3 font-mono text-xs uppercase tracking-[0.2em] text-muted"
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: START + 0.5 }}
-        >
-          {profile.available && (
-            <span className="flex items-center gap-2 rounded-full border border-line px-3 py-1.5 text-fg">
-              <span className="relative flex h-2 w-2">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
-                <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
+          className="absolute h-[50vmax] w-[50vmax] -translate-x-1/2 -translate-y-1/2 rounded-full blur-3xl"
+          style={{ left: gx, top: gy, background: "radial-gradient(circle, rgba(255,210,154,0.16), transparent 60%)" }}
+        />
+        <div className="absolute inset-0 bg-[radial-gradient(rgba(244,242,238,0.09)_1px,transparent_1px)] [background-size:28px_28px] [mask-image:radial-gradient(ellipse_at_center,black_20%,transparent_70%)]" />
+        <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-bg to-transparent" />
+      </div>
+
+      <motion.div style={{ y, opacity }} className="relative mx-auto grid w-full max-w-7xl items-center gap-16 lg:grid-cols-[1.25fr_1fr]">
+        <div>
+          <motion.div
+            className="glass mb-10 inline-flex items-center gap-3 rounded-full py-1.5 pl-1.5 pr-4 text-sm"
+            initial={{ opacity: 0, y: 10, filter: "blur(8px)" }}
+            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+            transition={{ duration: 0.9, delay: START + 0.4 }}
+          >
+            {profile.available && (
+              <span className="flex items-center gap-2 rounded-full bg-emerald-400/10 px-3 py-1 text-xs font-medium text-emerald-300">
+                <span className="relative flex h-1.5 w-1.5">
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
+                  <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-400" />
+                </span>
+                Yeni projelere açığım
               </span>
-              Yeni projelere açığım
-            </span>
-          )}
-          <span>{profile.location}</span>
-        </motion.div>
+            )}
+            <span className="text-muted">{profile.location}</span>
+          </motion.div>
 
-        <h1 className="text-[18vw] font-semibold leading-[0.85] tracking-[-0.06em] md:text-[14vw] xl:text-[12.5rem]">
-          <MaskText animateOnMount delay={START} lines={[profile.firstName, <span key="l" className="text-outline">{profile.lastName}</span>]} />
-        </h1>
+          <h1 className="text-[17vw] font-semibold leading-[0.88] tracking-[-0.055em] sm:text-[13vw] lg:text-[8.5rem] xl:text-[10rem]">
+            <MaskText
+              animateOnMount
+              delay={START}
+              lines={[
+                <span key="f" className="text-metal">{profile.firstName}</span>,
+                <span key="l" className="text-metal">
+                  {profile.lastName}
+                  <span className="text-accent">.</span>
+                </span>,
+              ]}
+            />
+          </h1>
 
-        <div className="mt-10 grid gap-8 md:mt-14 md:grid-cols-[1.2fr_1fr] md:items-end">
           <motion.p
-            className="text-2xl leading-tight tracking-tight md:text-4xl"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.9, delay: START + 0.35 }}
+            className="mt-10 text-2xl leading-tight tracking-tight text-fg/90 md:text-[2.5rem]"
+            initial={{ opacity: 0, y: 20, filter: "blur(8px)" }}
+            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+            transition={{ duration: 1, delay: START + 0.3 }}
           >
             İşletmeler için <RotatingRole />
             <br />
-            üretiyorum.
+            tasarlıyor ve geliştiriyorum.
           </motion.p>
+
           <motion.p
-            className="max-w-md text-base leading-relaxed text-muted md:justify-self-end"
+            className="mt-6 max-w-xl leading-relaxed text-muted md:text-lg"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.9, delay: START + 0.5 }}
+            transition={{ duration: 1, delay: START + 0.45 }}
           >
             {profile.intro}
           </motion.p>
-        </div>
-      </motion.div>
 
-      <motion.a
-        href="#hakkimda"
-        aria-label="Aşağı kaydır"
-        className="absolute bottom-8 right-6 hidden h-14 w-14 items-center justify-center rounded-full border border-line md:flex"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: START + 0.9 }}
-      >
-        <motion.span animate={{ y: [0, 6, 0] }} transition={{ repeat: Infinity, duration: 1.8 }}>
-          ↓
-        </motion.span>
-      </motion.a>
+          <motion.div
+            className="mt-10 flex flex-wrap gap-3"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: START + 0.6 }}
+          >
+            <a href="#iletisim" className="shine group relative inline-flex items-center gap-3 overflow-hidden rounded-full bg-fg py-3.5 pl-6 pr-3 font-medium text-bg">
+              Birlikte çalışalım
+              <span className="flex h-8 w-8 items-center justify-center rounded-full bg-bg text-fg transition-transform duration-500 group-hover:rotate-[-45deg]">→</span>
+            </a>
+            <a href="#uygulamalar" className="glass inline-flex items-center rounded-full px-6 py-3.5 font-medium transition-colors hover:bg-white/10">
+              Uygulamalarım
+            </a>
+          </motion.div>
+        </div>
+
+        <div className="hidden lg:block">
+          <HomeScreen mx={mx} my={my} />
+        </div>
+
+        {/* Mobilde ikon şeridi */}
+        <motion.div
+          className="flex gap-3 overflow-hidden lg:hidden"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: START + 0.8 }}
+        >
+          {apps.slice(0, 6).map((a) => (
+            <Image key={a.id} src={`/apps/${a.id}.png`} alt="" width={128} height={128} className="h-14 w-14 shrink-0 rounded-[22%] ring-1 ring-white/10" />
+          ))}
+        </motion.div>
+      </motion.div>
     </section>
   );
 }

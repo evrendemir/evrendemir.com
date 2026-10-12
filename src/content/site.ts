@@ -14,22 +14,21 @@ export const profile = {
 
 export const socials = [
   { label: "GitHub", href: "https://github.com/evrendemir" },
-  { label: "App Store", href: "https://apps.apple.com/tr/developer/id1705740060" },
   { label: "LinkedIn", href: "#" },
   { label: "Instagram", href: "#" },
 ];
 
 export const about = {
   statement:
-    "Kod yazmayı bir amaç değil, araç olarak görüyorum. Bir zeytinyağı fabrikasının, bir oto servisin ya da mahalledeki bir dükkânın gerçek derdini alıp her gün kullanılan bir ürüne dönüştürmek beni heyecanlandırıyor.",
+    "Kod yazmayı bir amaç değil, araç olarak görüyorum. Bir üretim firmasının, bir atölyenin ya da mahalledeki bir dükkânın gerçek derdini alıp her gün kullanılan bir ürüne dönüştürmek beni heyecanlandırıyor.",
   paragraphs: [
-    "Bugüne kadar App Store'a 12 uygulama çıkardım: esnafın cebinden stok ve satış yönettiği uygulamalardan, siparişten sevkiyata bütün üretimi yöneten şirket içi sistemlere kadar.",
+    "Bugüne kadar App Store'a 10 uygulama çıkardım; siparişten sevkiyata bütün üretimi yöneten şirket içi sistemler ve küçük işletmelerin vitrin siteleri yaptım.",
     "Yazılımı teslim edip gitmiyorum. Kurulumu, eğitimi ve sonrasındaki desteği üstleniyorum; işletme büyüdükçe yazılım da onunla birlikte büyüyor.",
   ],
   stats: [
-    { value: 12, suffix: "", label: "App Store uygulaması" },
+    { value: 10, suffix: "", label: "App Store uygulaması" },
     { value: 25, suffix: "+", label: "panel modülü" },
-    { value: 4.6, suffix: "★", label: "Pratik Stok Takip puanı", decimals: 1 },
+    { value: 5, suffix: "", label: "web projesi" },
   ],
 };
 
@@ -47,105 +46,99 @@ export const skills = [
   "SEO",
 ];
 
-// App Store'daki uygulamalar. Görseller /public/apps klasöründe, App Store'dan alındı.
+// App Store'da "Evren Demir" geliştirici hesabıyla yayınladığım uygulamalar (şu an mağazada değiller).
+// İkonlar /public/apps klasöründe.
 export type App = {
   id: string;
   name: string;
-  group: "esnaf" | "firma" | "topluluk";
   category: string;
   summary: string;
-  url: string;
-  rating?: { value: number; count: number };
-  platform?: string;
-  extra?: string;
+  year: string;
+  glow: string;
+  price?: string;
 };
-
-const store = (id: string) => `https://apps.apple.com/tr/app/id${id}`;
 
 export const apps: App[] = [
   {
-    id: "6741438981",
-    name: "Pratik Stok Takip",
-    group: "esnaf",
-    category: "Stok ve satış",
-    summary: "Satış, stok giriş-çıkışı, sayım ve raporlar. Teknik servis, oto servis, üretim ve personel modülleriyle tek yerden.",
-    url: store("6741438981"),
-    rating: { value: 4.6, count: 74 },
+    id: "6477433175",
+    name: "Pomem Hazırlık",
+    category: "Eğitim",
+    summary: "Polis Akademisi POMEM sınavına hazırlananlar için soru bankası ve deneme sınavları.",
+    year: "2024",
+    glow: "#1e3a8a",
+    price: "Ücretli",
   },
   {
-    id: "6761792977",
-    name: "PratikPos",
-    group: "esnaf",
-    category: "Satış noktası",
-    summary: "Mağaza için kasa ekranı: satış yap, stoğu güncel tut, günün raporunu gör.",
-    url: store("6761792977"),
-    platform: "Mac",
+    id: "6471904214",
+    name: "Train Heroic",
+    category: "Sağlık ve fitness",
+    summary: "Hedefe göre hazır antrenman programları ve ilerleme takibi.",
+    year: "2023",
+    glow: "#a1a1aa",
   },
   {
-    id: "6740820848",
-    name: "Pratik Muhasebe",
-    group: "esnaf",
-    category: "Ön muhasebe",
-    summary: "Gelir, gider ve cari hesapları sade bir arayüzle takip etmek için.",
-    url: store("6740820848"),
+    id: "6499078634",
+    name: "InLove",
+    category: "İlişki",
+    summary: "Çiftlerin birlikte geçirdikleri zamanı ve özel günlerini takip ettiği uygulama.",
+    year: "2024",
+    glow: "#fb7185",
   },
   {
-    id: "6754558335",
-    name: "Pratik Randevu",
-    group: "esnaf",
-    category: "Randevu",
-    summary: "Kuaförden kliniğe, randevuyla çalışan her işletme için takvim ve müşteri takibi.",
-    url: store("6754558335"),
+    id: "6748896112",
+    name: "Couple Games",
+    category: "Oyun",
+    summary: "Çiftlerin birbirini daha iyi tanıması için soru ve oyun kartları.",
+    year: "2025",
+    glow: "#e11d48",
   },
   {
-    id: "6751212404",
-    name: "Pratik Teknik Servis",
-    group: "esnaf",
-    category: "Servis takibi",
-    summary: "Teknik servisler için arıza kaydı, iş takibi ve müşteri bilgilendirmesi.",
-    url: store("6751212404"),
+    id: "6748671997",
+    name: "Pulled Over",
+    category: "Güvenlik",
+    summary: "Trafikte durdurulduğunda tek dokunuşla kayıt alıp yakınlarına haber veren uygulama.",
+    year: "2025",
+    glow: "#ef4444",
   },
   {
-    id: "6744290824",
-    name: "Desktop Oto Servis",
-    group: "esnaf",
-    category: "Oto servis",
-    summary: "Tamir ve bakım servisleri için masaüstü programla entegre çalışan, müşteriye detaylı rapor sunan uygulama.",
-    url: store("6744290824"),
+    id: "6751401289",
+    name: "Wildfire Maps",
+    category: "Hava ve uyarılar",
+    summary: "Yakındaki orman yangınlarını harita üzerinde gösteren ve uyarı gönderen uygulama.",
+    year: "2025",
+    glow: "#f97316",
   },
   {
-    id: "6477217921",
-    name: "OliveOs",
-    group: "firma",
-    category: "Zeytinyağı üretimi",
-    summary: "Zeytinyağı üreticileri için ham zeytin girişinden üretim, depo ve kalite raporlarına kadar takip.",
-    url: store("6477217921"),
-    extra: "+ OliveOs Otomasyon",
+    id: "6751622826",
+    name: "Family Calendar",
+    category: "Verimlilik",
+    summary: "Ailenin bütün planlarını renkli ve paylaşılan tek bir takvimde toplayan uygulama.",
+    year: "2025",
+    glow: "#38bdf8",
   },
   {
-    id: "6464317869",
-    name: "MT Global",
-    group: "firma",
-    category: "Müşteri portalı",
-    summary: "Firmanın müşterilerinin kendi bilgilerini takip ettiği uygulama ve ekibin kullandığı yönetim uygulaması.",
-    url: store("6464317869"),
-    extra: "+ MT Global Admin",
+    id: "6751099409",
+    name: "Pixel the World",
+    category: "Oyun",
+    summary: "Dünya haritası üzerinde herkesle birlikte piksel piksel resim yapılan çok oyunculu oyun.",
+    year: "2025",
+    glow: "#84cc16",
   },
   {
-    id: "6773259816",
-    name: "Akm Stone",
-    group: "firma",
-    category: "Ürün kataloğu",
-    summary: "Doğal taş firmasının stoktaki taşlarını fotoğraflarıyla müşterilerine sunduğu katalog uygulaması.",
-    url: store("6773259816"),
+    id: "6751042434",
+    name: "Tea for Men",
+    category: "Sosyal",
+    summary: "Erkekler için topluluk ve güvenli tanışma uygulaması.",
+    year: "2025",
+    glow: "#2563eb",
   },
   {
-    id: "6754556514",
-    name: "VetWork",
-    group: "topluluk",
-    category: "Meslek ağı",
-    summary: "Veterinerlerin ve veteriner adaylarının vakalar üzerine haberleşip birbirine yardım ettiği platform.",
-    url: store("6754556514"),
+    id: "6749484568",
+    name: "Sagu",
+    category: "Yaşam tarzı",
+    summary: "Kişisel uygulama projem.",
+    year: "2025",
+    glow: "#64748b",
   },
 ];
 
@@ -267,6 +260,6 @@ export const course = {
   badge: "Hazırlanıyor",
   title: "Cursor ile iOS uygulaması geliştir",
   body:
-    "App Store'a 12 uygulama çıkarırken öğrendiklerimi adım adım bir eğitime dönüştürüyorum. Kod geçmişin olmasa bile yapay zekâ ile fikrini yayına taşıyabilmen için. İlk duyan sen ol.",
+    "App Store'a 10 uygulama çıkarırken öğrendiklerimi adım adım bir eğitime dönüştürüyorum. Kod geçmişin olmasa bile yapay zekâ ile fikrini yayına taşıyabilmen için. İlk duyan sen ol.",
   points: ["Kurulumdan App Store'a", "Gerçek bir uygulama üzerinden", "Topluluk ve canlı oturumlar"],
 };

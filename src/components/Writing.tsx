@@ -11,7 +11,7 @@ export default function Writing() {
       <div className="grid gap-16 lg:grid-cols-[1.1fr_1fr]">
         <div>
           <h2 className="mb-6 text-5xl font-semibold leading-[0.95] tracking-[-0.04em] md:text-7xl">
-            <MaskText lines={["Öğrendiklerimi", <span key="s" className="font-serif font-normal italic text-accent">paylaşıyorum.</span>]} />
+            <MaskText lines={["Öğrendiklerimi", <span key="s" className="text-gradient font-serif font-normal italic">paylaşıyorum.</span>]} />
           </h2>
           <Reveal className="mb-12 max-w-md text-muted">
             <p>İşletmeler için yazılım, esnafın dijitalleşmesi ve yapay zekâ ile ürün geliştirme üzerine notlar. Ayda bir, kısa ve işe yarar.</p>
@@ -36,7 +36,7 @@ export default function Writing() {
 
         {/* Kurs */}
         <Reveal delay={0.15}>
-          <div className="relative overflow-hidden rounded-3xl border border-line bg-bg-soft p-8 md:p-12">
+          <div className="gradient-border relative overflow-hidden rounded-[2rem] bg-bg-soft p-8 md:p-12">
             <div
               aria-hidden
               className="pointer-events-none absolute -right-24 -top-24 h-80 w-80 rounded-full opacity-50 blur-3xl"

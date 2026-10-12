@@ -77,7 +77,7 @@ export default function About() {
             {about.stats.map((s, i) => (
               <Reveal key={s.label} delay={i * 0.1} className="border-t border-line pt-5">
                 <p className="text-5xl font-semibold tracking-tight md:text-6xl">
-                  <Counter value={s.value} suffix={s.suffix} decimals={s.decimals} />
+                  <Counter value={s.value} suffix={s.suffix} />
                 </p>
                 <p className="mt-2 text-sm text-muted">{s.label}</p>
               </Reveal>

@@ -1,165 +1,96 @@
 "use client";
 
-import { AnimatePresence, motion } from "framer-motion";
+import { motion, useMotionTemplate, useMotionValue } from "framer-motion";
 import Image from "next/image";
-import { useState } from "react";
 import { apps, type App } from "@/content/site";
 import { MaskText, Reveal, SectionLabel } from "./Reveal";
 
-const filters = [
-  { key: "all", label: "Tümü" },
-  { key: "esnaf", label: "Esnaf ve küçük işletme" },
-  { key: "firma", label: "Firmalara özel" },
-  { key: "topluluk", label: "Topluluk" },
-] as const;
+// Fareyi takip eden, uygulamanın kendi renginde parlayan cam kart.
+function AppCard({ app, index, big = false }: { app: App; index: number; big?: boolean }) {
+  const px = useMotionValue(50);
+  const py = useMotionValue(30);
+  const glow = useMotionTemplate`radial-gradient(420px circle at ${px}% ${py}%, ${app.glow}40, transparent 65%)`;
 
-type FilterKey = (typeof filters)[number]["key"];
-
-function Phone({ src, alt, className = "" }: { src: string; alt: string; className?: string }) {
   return (
-    <div className={`overflow-hidden rounded-[1.6rem] border-[5px] border-[#1d1d1f] bg-[#1d1d1f] shadow-2xl shadow-black/60 ${className}`}>
-      <Image src={src} alt={alt} width={600} height={1300} className="h-full w-full rounded-[1.2rem] object-cover object-top" />
-    </div>
-  );
-}
-
-function Featured() {
-  const app = apps[0];
-  return (
-    <Reveal className="mb-6">
-      <a
-        href={app.url}
-        target="_blank"
-        rel="noreferrer"
-        className="group relative grid overflow-hidden rounded-3xl border border-line bg-bg-soft md:grid-cols-[1fr_1.1fr]"
+    <Reveal delay={(index % 4) * 0.07} className={big ? "sm:col-span-2 lg:row-span-2" : ""}>
+      <motion.div
+        onPointerMove={(e) => {
+          const r = e.currentTarget.getBoundingClientRect();
+          px.set(((e.clientX - r.left) / r.width) * 100);
+          py.set(((e.clientY - r.top) / r.height) * 100);
+        }}
+        whileHover={{ y: -6 }}
+        transition={{ type: "spring", stiffness: 300, damping: 24 }}
+        className={`gradient-border group relative flex h-full flex-col overflow-hidden rounded-[2rem] bg-bg-soft ${big ? "p-8 md:p-10" : "p-6"}`}
       >
+        <motion.div aria-hidden className="pointer-events-none absolute inset-0 opacity-60 transition-opacity duration-500 group-hover:opacity-100" style={{ background: glow }} />
         <div
           aria-hidden
-          className="pointer-events-none absolute -left-32 -top-32 h-96 w-96 rounded-full opacity-40 blur-3xl"
-          style={{ background: "radial-gradient(circle, #e11d1d, transparent 70%)" }}
+          className="pointer-events-none absolute -right-10 -top-10 h-40 w-40 rounded-full opacity-30 blur-3xl"
+          style={{ background: app.glow }}
         />
-        <div className="relative flex flex-col justify-between gap-10 p-8 md:p-12">
-          <div>
-            <div className="flex items-center gap-4">
-              <Image src={`/apps/${app.id}-icon.jpg`} alt="" width={72} height={72} className="rounded-[1.1rem]" />
-              <div>
-                <p className="font-mono text-xs uppercase tracking-[0.18em] text-muted">En çok kullanılan</p>
-                <h3 className="text-3xl font-semibold tracking-tight">{app.name}</h3>
-              </div>
-            </div>
-            <p className="mt-8 max-w-md text-lg leading-relaxed text-muted">{app.summary}</p>
+
+        <div className="relative flex items-start justify-between">
+          <div className="relative">
+            <div aria-hidden className="absolute inset-2 rounded-[22%] blur-xl transition-opacity duration-500 group-hover:opacity-100" style={{ background: app.glow, opacity: 0.5 }} />
+            <Image
+              src={`/apps/${app.id}.png`}
+              alt={`${app.name} ikonu`}
+              width={128}
+              height={128}
+              className={`relative rounded-[22%] ring-1 ring-white/10 transition-transform duration-700 ease-out group-hover:scale-105 group-hover:-rotate-3 ${
+                big ? "h-28 w-28 md:h-32 md:w-32" : "h-16 w-16"
+              }`}
+            />
           </div>
-          <div className="flex flex-wrap items-center gap-6">
-            {app.rating && (
-              <div>
-                <p className="text-4xl font-semibold tracking-tight">
-                  {app.rating.value.toLocaleString("tr-TR")}
-                  <span className="text-accent-2"> ★</span>
-                </p>
-                <p className="text-sm text-muted">{app.rating.count} değerlendirme</p>
-              </div>
-            )}
-            <span className="rounded-full bg-fg px-5 py-3 text-sm font-medium text-bg transition-transform group-hover:scale-105">
-              App Store&apos;da gör ↗
-            </span>
-          </div>
+          <span className="font-mono text-[11px] tracking-wider text-muted">{app.year}</span>
         </div>
-        <div className="relative flex h-80 items-end justify-center gap-4 overflow-hidden px-6 pt-10 md:h-auto md:min-h-[460px]">
-          <Phone src={`/apps/${app.id}-1.jpg`} alt={`${app.name} ekranı`} className="w-40 translate-y-16 transition-transform duration-700 group-hover:translate-y-10 md:w-48" />
-          <Phone src={`/apps/${app.id}-2.jpg`} alt={`${app.name} ekranı`} className="w-40 translate-y-4 transition-transform duration-700 group-hover:-translate-y-2 md:w-48" />
+
+        <div className={`relative ${big ? "mt-auto pt-16" : "mt-8"}`}>
+          <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-muted">
+            {app.category}
+            {app.price && <span className="ml-2 rounded-full border border-accent/40 px-2 py-0.5 text-accent">{app.price}</span>}
+          </p>
+          <h3 className={`mt-2 font-medium tracking-tight ${big ? "text-4xl md:text-5xl" : "text-xl"}`}>{app.name}</h3>
+          <p className={`mt-3 leading-relaxed text-muted ${big ? "max-w-sm text-lg" : "text-sm"}`}>{app.summary}</p>
         </div>
-      </a>
+      </motion.div>
     </Reveal>
   );
 }
 
-function AppCard({ app }: { app: App }) {
-  return (
-    <motion.a
-      layout
-      href={app.url}
-      target="_blank"
-      rel="noreferrer"
-      initial={{ opacity: 0, scale: 0.94 }}
-      animate={{ opacity: 1, scale: 1 }}
-      exit={{ opacity: 0, scale: 0.94 }}
-      transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-      className="group relative flex flex-col overflow-hidden rounded-3xl border border-line bg-bg-soft p-6 transition-colors hover:border-fg/25"
-    >
-      <div className="flex items-start justify-between gap-4">
-        <Image
-          src={`/apps/${app.id}-icon.jpg`}
-          alt=""
-          width={64}
-          height={64}
-          className="rounded-[1rem] transition-transform duration-500 group-hover:-rotate-6 group-hover:scale-110"
-        />
-        <span className="flex h-9 w-9 items-center justify-center rounded-full border border-line text-sm transition-all duration-500 group-hover:rotate-45 group-hover:border-accent group-hover:bg-accent group-hover:text-bg">
-          ↗
-        </span>
-      </div>
-      <p className="mt-6 font-mono text-[11px] uppercase tracking-[0.18em] text-muted">
-        {app.category}
-        {app.platform && ` · ${app.platform}`}
-      </p>
-      <h3 className="mt-1 text-xl font-medium tracking-tight">{app.name}</h3>
-      {app.extra && <p className="text-sm text-accent">{app.extra}</p>}
-      <p className="mt-3 text-sm leading-relaxed text-muted">{app.summary}</p>
-
-      {/* Üstüne gelince alttan yükselen ekran görüntüsü */}
-      <div className="pointer-events-none mt-6 h-0 overflow-hidden transition-[height] duration-700 ease-out group-hover:h-56">
-        <Image
-          src={`/apps/${app.id}-2.jpg`}
-          alt={`${app.name} ekranı`}
-          width={600}
-          height={1300}
-          className="mx-auto w-32 rounded-2xl border-4 border-[#1d1d1f] object-cover object-top"
-        />
-      </div>
-    </motion.a>
-  );
-}
-
 export default function Apps() {
-  const [filter, setFilter] = useState<FilterKey>("all");
-  const rest = apps.slice(1).filter((a) => filter === "all" || a.group === filter);
-
   return (
-    <section id="uygulamalar" className="mx-auto max-w-7xl px-4 py-28 md:px-10 md:py-40">
+    <section id="uygulamalar" className="relative mx-auto max-w-7xl px-4 py-28 md:px-10 md:py-40">
       <SectionLabel index="02">App Store&apos;daki uygulamalarım</SectionLabel>
       <div className="mb-16 flex flex-col justify-between gap-6 md:flex-row md:items-end">
-        <h2 className="text-5xl font-semibold leading-[0.95] tracking-[-0.04em] md:text-8xl">
-          <MaskText lines={["Cebinizde", <span key="s" className="font-serif font-normal italic text-accent">çalışan yazılım.</span>]} />
+        <h2 className="text-5xl font-semibold leading-[0.95] tracking-[-0.045em] md:text-8xl">
+          <MaskText lines={[<span key="a" className="text-metal">On uygulama,</span>, <span key="s" className="text-gradient font-serif font-normal italic">tek geliştirici.</span>]} />
         </h2>
         <Reveal className="max-w-sm text-muted">
-          <p>Esnafın her gün kullandığı uygulamalardan firmalara özel sistemlere kadar, yayında olan işlerim.</p>
+          <p>Fikirden tasarıma, geliştirmeden App Store yayınına kadar her birini kendim yaptım.</p>
         </Reveal>
       </div>
 
-      <Featured />
-
-      <Reveal className="my-10 flex flex-wrap gap-2">
-        {filters.map((f) => (
-          <button
-            key={f.key}
-            onClick={() => setFilter(f.key)}
-            className={`relative rounded-full px-4 py-2 text-sm transition-colors ${filter === f.key ? "text-bg" : "text-muted hover:text-fg"}`}
-          >
-            {filter === f.key && (
-              <motion.span layoutId="app-filter" className="absolute inset-0 rounded-full bg-fg" transition={{ type: "spring", stiffness: 400, damping: 32 }} />
-            )}
-            <span className="relative">{f.label}</span>
-          </button>
+      <div className="grid auto-rows-fr gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        {apps.map((a, i) => (
+          <AppCard key={a.id} app={a} index={i} big={i === 0} />
         ))}
-      </Reveal>
-
-      <motion.div layout className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        <AnimatePresence mode="popLayout">
-          {rest.map((a) => (
-            <AppCard key={a.id} app={a} />
-          ))}
-        </AnimatePresence>
-      </motion.div>
+        <Reveal className="sm:col-span-2 lg:col-span-3">
+          <a
+            href="#iletisim"
+            className="gradient-border group relative flex h-full flex-col justify-between gap-8 overflow-hidden rounded-[2rem] bg-gradient-to-br from-accent/20 via-bg-soft to-bg-soft p-8 md:flex-row md:items-center md:p-10"
+          >
+            <div>
+              <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-accent">Sıradaki</p>
+              <p className="mt-2 text-3xl font-medium tracking-tight md:text-4xl">Bir sonraki uygulama sizin fikriniz olsun.</p>
+            </div>
+            <span className="shine relative inline-flex w-fit shrink-0 items-center gap-2 overflow-hidden rounded-full bg-fg px-6 py-3.5 font-medium text-bg">
+              Fikrini anlat →
+            </span>
+          </a>
+        </Reveal>
+      </div>
     </section>
   );
 }

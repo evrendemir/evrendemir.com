@@ -9,7 +9,7 @@ function Cover({ project }: { project: Project }) {
   const [a, b] = project.accent;
   if (project.image) {
     return (
-      <div className="relative aspect-[4/3] overflow-hidden rounded-2xl bg-bg-soft">
+      <div className="gradient-border relative aspect-[4/3] overflow-hidden rounded-[2rem] bg-bg-soft">
         <div className="absolute inset-0" style={{ background: `linear-gradient(135deg, ${a}66, ${b}33)` }} />
         <div className="absolute inset-x-[7%] bottom-0 top-[9%] overflow-hidden rounded-t-xl border border-white/15 shadow-2xl shadow-black/50 transition-transform duration-700 group-hover:-translate-y-3">
           <div className="flex h-6 items-center gap-1.5 bg-[#1d1d1f] px-3">
@@ -29,7 +29,7 @@ function Cover({ project }: { project: Project }) {
     );
   }
   return (
-    <div className="relative aspect-[4/3] overflow-hidden rounded-2xl bg-bg-soft">
+    <div className="gradient-border relative aspect-[4/3] overflow-hidden rounded-[2rem] bg-bg-soft">
       <motion.div
         className="absolute inset-0"
         style={{ background: `radial-gradient(120% 90% at 20% 10%, ${a}55 0%, transparent 55%), radial-gradient(90% 80% at 90% 100%, ${b}40 0%, transparent 60%)` }}
@@ -94,7 +94,7 @@ function Card({ project, index }: { project: Project; index: number }) {
       >
         <Tag {...(project.href ? { href: project.href, target: "_blank", rel: "noreferrer" } : {})} className="block">
           <Cover project={project} />
-          <motion.div className="pointer-events-none absolute inset-0 rounded-2xl" style={{ background: spotlight }} />
+          <motion.div className="pointer-events-none absolute inset-0 rounded-[2rem]" style={{ background: spotlight }} />
           <div className="mt-6 flex items-start justify-between gap-6">
             <div>
               <p className="font-mono text-xs uppercase tracking-[0.18em] text-muted">
@@ -126,7 +126,7 @@ export default function Work() {
       <SectionLabel index="03">Seçili işler</SectionLabel>
       <div className="mb-20 flex flex-col justify-between gap-6 md:flex-row md:items-end">
         <h2 className="text-5xl font-semibold leading-[0.95] tracking-[-0.04em] md:text-8xl">
-          <MaskText lines={["Gerçek işler,", <span key="s" className="font-serif font-normal italic text-accent">gerçek dertler.</span>]} />
+          <MaskText lines={["Gerçek işler,", <span key="s" className="text-gradient font-serif font-normal italic">gerçek dertler.</span>]} />
         </h2>
         <Reveal className="max-w-sm text-muted">
           <p>Uygulamaların yanında firmalar için yaptığım sistemler, siteler ve otomasyonlar.</p>
