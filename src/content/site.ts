@@ -28,7 +28,7 @@ export const profile = {
 export const socials = [
   { label: "GitHub", href: "https://github.com/evrendemir" },
   { label: "LinkedIn", href: "#" },
-  { label: "Instagram", href: "#" },
+  { label: "Instagram", href: "https://www.instagram.com/evren.apps/" },
 ];
 
 export const about = {
